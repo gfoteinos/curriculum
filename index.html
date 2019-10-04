@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <!-- Fontawesome -->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+      integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+      crossorigin="anonymous"
+    />
+    <!-- Devicon Icon Set -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.rawgit.com/konpa/devicon/df6431e323547add1b4cf45992913f15286456d3/devicon.min.css"
+    />
+
+    <!-- Bootstrap  -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Custom css -->
+    <link rel="stylesheet" href="css/style.css" />
+    <title>University</title>
+  </head>
+
+  <body data-spy="scroll" data-target="#main-navigation">
+    <!-- NAVBAR -->
+    <nav
+      id="main-navigation"
+      class="navbar navbar-expand-lg navbar-light bg-light py-4 main-nav"
+    >
+      <div class="container">
+        <a href="index.html" class="navbar-brand">
+          <h3 class="d-inline align-middle">
+            University
+            <span
+              ><h2><strong>Curriculum</strong></h2></span
+            >
+          </h3>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarCollapse"
+          aria-controls="navbarCollapse"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav mb-3 mb-lg-0 mx-auto">
+            <li class="nav-item">
+              <a href="#courses" class="nav-link">Courses</a>
+            </li>
+            <li class="nav-item">
+              <a href="#modules" class="nav-link">Modules</a>
+            </li>
+            <li class="nav-item">
+              <a href="#facultyMembers" class="nav-link">Faculty Members</a>
+            </li>
+            <li class="nav-item">
+              <a href="#students" class="nav-link">Students</a>
+            </li>
+          </ul>
+          <ul class="navbar-nav ml-auto c-nav-register">
+            <li class="nav-item mb-2 mb-lg-0 mr-lg-2">
+              <!-- A Trigger "Login" Modal -->
+              <a
+                href="#"
+                class="nav-link btn btn-outline-secondary"
+                data-toggle="modal"
+                data-target="#loginModal"
+                >Log In</a
+              >
+            </li>
+            <li class="nav-item">
+              <!-- A Trigger "Sign Up" Modal -->
+              <a
+                href="#"
+                class="nav-link btn btn-primary text-light"
+                data-toggle="modal"
+                data-target="#signUpModal"
+                >Sign Up</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- SHOWCASE SECTION -->
+    <section id="showcase" class="p-5">
+      <div class="c-dark-overlay">
+        <div class="row">
+          <div class="col d-flex align-items-center text-center">
+            <div class="container pt-5 ">
+              <h1 class="display-4 mb-3 mb-lg-4">A Curriculum For Everyone</h1>
+              <p class="lead mb-4 ">Simple And Effective</p>
+              <a
+                href="#"
+                class="btn btn-outline-primary btn-lg text-white"
+                role="button"
+              >
+                Start
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COURSES SECTION -->
+    <section id="courses" class="bg-white">
+      <div class="container">
+        <div class="row py-5 px-md-5 c-py-lg-6">
+          <div class="col-lg-6 pt-4 pt-lg-0">
+            <img
+              src="img/temp/3.jpg"
+              alt=""
+              class="img-fluid rounded-lg c-shadow-img"
+            />
+          </div>
+          <div
+            class="col-lg-6 align-self-center px-4 px-md-5 px-lg-4 pt-3 pt-lg-0"
+          >
+            <div class="card border-0 card--home-page">
+              <div class="card-body">
+                <h3 class="card-title">Courses</h3>
+                <p class="card-text">
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolor
+                  optio reiciendis quia possimus, nostrum quam, quod amet quos
+                  deleniti quo in magnam voluptatum, autem sint!
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MODULES SECTION -->
+    <section id="modules" class="bg-light">
+      <div class="container">
+        <div class="row py-5 px-md-5 c-py-lg-6">
+          <div class="col-lg-6 order-lg-2 pt-4 pt-lg-0">
+            <img
+              src="img/temp/4.jpg"
+              alt=""
+              class="img-fluid rounded-lg c-shadow-img"
+            />
+          </div>
+          <div
+            class="col-lg-6 align-self-center px-4 px-md-5 px-lg-4 pt-3 pt-lg-0"
+          >
+            <div class="card border-0 card--home-page">
+              <div class="card-body">
+                <h3 class="card-title">Modules</h3>
+                <p class="card-text">
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolor
+                  optio reiciendis quia possimus, nostrum quam, quod amet quos
+                  deleniti quo in magnam voluptatum, autem sint!
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FACULTY MEMBERS SECTION -->
+    <section id="facultyMembers" class="bg-white">
+      <div class="container">
+        <div class="row py-5 px-md-5 c-py-lg-6">
+          <div class="col-lg-6 pt-4 pt-lg-0">
+            <img
+              src="img/temp/5.jpg"
+              alt=""
+              class="img-fluid rounded-lg c-shadow-img"
+            />
+          </div>
+          <div
+            class="col-lg-6 align-self-center px-4 px-md-5 px-lg-4 pt-3 pt-lg-0"
+          >
+            <div class="card border-0 card--home-page">
+              <div class="card-body">
+                <h3 class="card-title">Faculty Members</h3>
+                <p class="card-text">
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolor
+                  optio reiciendis quia possimus, nostrum quam, quod amet quos
+                  deleniti quo in magnam voluptatum, autem sint!
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STUDENTS MEMBERS SECTION -->
+    <section id="students" class="bg-light">
+      <div class="container">
+        <div class="row py-5 px-md-5 c-py-lg-6">
+          <div class="col-lg-6 order-lg-2 pt-4 pt-lg-0">
+            <img
+              src="img/temp/8.jpg"
+              alt=""
+              class="img-fluid rounded-lg c-shadow-img"
+            />
+          </div>
+          <div
+            class="col-lg-6 align-self-center px-4 px-md-5 px-lg-4 pt-3 pt-lg-0"
+          >
+            <div class="card border-0 card--home-page">
+              <div class="card-body">
+                <h3 class="card-title">Students</h3>
+                <p class="card-text">
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolor
+                  optio reiciendis quia possimus, nostrum quam, quod amet quos
+                  deleniti quo in magnam voluptatum, autem sint!
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="main-footer" class="bg-dark py-5 text-light">
+      <div class="container py-5 text-center">
+        <div class="row pb-4">
+          <div class="col">
+            <h2>A Curriculum for Everyone.</h2>
+            <p class="lead">Simple And Effective</p>
+            <a href="#" class="btn btn-outline-primary btn-lg" role="button">
+              Start
+            </a>
+          </div>
+        </div>
+        <hr class="col-8 col-md-6" />
+        <div class="row pt-4 pb-4">
+          <div class="col col-md-9 m-auto">
+            <h2 class="mb-4">The App Is Powered By</h2>
+            <ul class="nav d-flex justify-content-between col-11 mx-auto">
+              <li class="nav-item">
+                <i
+                  class="devicon-html5-plain"
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="HTML 5"
+                ></i>
+                <p>HTML 5</p>
+              </li>
+              <li class="nav-item">
+                <i
+                  class="devicon-css3-plain"
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="CSS 3"
+                ></i>
+                <p>CSS 3</p>
+              </li>
+              <li class="nav-item">
+                <i
+                  class="devicon-javascript-plain"
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="JavaScript"
+                ></i>
+                <p>JavaScript</p>
+              </li>
+              <li class="nav-item">
+                <i
+                  class="devicon-bootstrap-plain"
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="Bootstrap"
+                ></i>
+                <p>BootStrap</p>
+              </li>
+              <li class="nav-item">
+                <i
+                  class="devicon-nodejs-plain"
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="Node.js"
+                ></i>
+                <p>Node-JS</p>
+              </li>
+              <li class="nav-item">
+                <i
+                  class="devicon-express-original"
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="Express"
+                ></i>
+                <p>Express</p>
+              </li>
+              <li class="nav-item">
+                <i
+                  class="devicon-mongodb-plain"
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="MongoDB"
+                ></i>
+                <p>Mongo-db</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <p class="lead">
+              copyright &copy; George Foteinos <span id="year"></span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- MODALS -->
+
+    <!-- LOGIN MODAL -->
+    <div id="loginModal" class="modal fade modal--default" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header d-flex align-items-center">
+            <h5 class="modal-title">Log In to Your Carricilum Account!</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form class="py-2">
+              <div class="input-group input-group--white mb-3">
+                <div class="input-group-prepend">
+                  <span id="addonEmail" class="input-group-text">
+                    <i class="fas fa-envelope"></i>
+                  </span>
+                </div>
+                <input
+                  type="email"
+                  name=""
+                  id="email"
+                  class="form-control form-control-lg"
+                  placeholder="Email"
+                  maxlength="64" minlength="7"
+                  required=""
+                  aria-label="Email"
+                  aria-describedby="addonEmail"
+                />
+              </div>
+              <div class="input-group input-group--white mb-3">
+                <div class="input-group-prepend">
+                  <span id="addonPassword" class="input-group-text">
+                    <i class="fas fa-lock"></i>
+                  </span>
+                </div>
+                <input
+                  type="password"
+                  name=""
+                  id="password"
+                  class="form-control form-control-lg"
+                  placeholder="Password"
+                  maxlength="64" minlength="6"
+                  required=""
+                  aria-label="Password"
+                  aria-describedby="addonPassword"
+                />
+              </div>
+              <button
+                type="submit"
+                class="form-control btn btn-block btn-lg btn-primary mb-3"
+              >
+                Log In
+              </button>
+              <p class="text-center">or <a href="#" data-toggle="modal" data-target="#forgotPassword" data-dismiss="modal">forgot password</a></p>
+            </form>
+          </div>
+          <div class="modal-footer justify-content-center">
+            Don't have an account? 
+            <!-- A Trigger "Sign Up" Modal -->
+            <a
+            href="#"
+            data-toggle="modal"
+            data-target="#signUpModal"
+            data-dismiss="modal"
+            >Sign Up</a
+          >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SIGNUP MODAL -->
+    <div id="signUpModal" class="modal fade modal--default" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header d-flex align-items-center">
+            <h5 class="modal-title">Create An Account</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form class="py-2">
+              <div class="input-group input-group--white mb-3">
+                <div class="input-group-prepend">
+                  <span id="addonFullName" class="input-group-text">
+                    <i class="fas fa-user"></i>
+                  </span>
+                </div>
+                <input
+                  type="text"
+                  name=""
+                  id="fullName"
+                  class="form-control form-control-lg"
+                  placeholder="Full Name"
+                  maxlength="64"
+                  required=""
+                  aria-label="Full Name"
+                  aria-describedby="addonFullName"
+                />
+              </div>
+              <div class="input-group input-group--white mb-3">
+                <div class="input-group-prepend">
+                  <span id="addonEmail" class="input-group-text">
+                    <i class="fas fa-envelope"></i>
+                  </span>
+                </div>
+                <input
+                  type="email"
+                  name=""
+                  id="email"
+                  class="form-control form-control-lg"
+                  placeholder="Email"
+                  maxlength="64" minlength="7"
+                  required=""
+                  aria-label="Email"
+                  aria-describedby="addonEmail"
+                />
+              </div>
+              <div class="input-group input-group--white mb-3">
+                <div class="input-group-prepend password-icon">
+                  <span id="addonPassword" class="input-group-text">
+                    <i class="fas fa-lock"></i>
+                  </span>
+                </div>
+                <input
+                  type="password"
+                  name=""
+                  id="password"
+                  class="form-control form-control-lg"
+                  placeholder="Password"
+                  maxlength="64" minlength="6"
+                  required=""
+                  aria-label="Password"
+                  aria-describedby="addonPassword"
+                />
+              </div>
+              <div class="form-group d-flex justify-content-between col-10 mx-auto py-2">
+                <div class="custom-control custom-radio custom-control-inline">
+                  <input type="radio" name="radioOption" id="facultyMember" class="custom-control-input">
+                  <label for="facultyMember" class="custom-control-label">As Faculty Member</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                  <input type="radio" name="radioOption" id="student" class="custom-control-input">
+                  <label for="student" class="custom-control-label">As Student</label>
+                </div>
+              </div>
+              <a
+              href="faculty-profile.html"
+              class="form-control btn btn-block btn-lg btn-primary mb-3"
+              >Sign Up</a
+            >
+              <!-- <button
+                type="submit"
+                class="form-control btn btn-block btn-lg btn-primary mb-3"
+              >
+                Sign Up
+              </button> -->
+            </form>
+          </div>
+          <div class="modal-footer justify-content-center">
+            Already have an account? 
+            <!-- A Trigger "Login" Modal -->
+            <a
+              href="#"
+              data-toggle="modal"
+              data-target="#loginModal"
+              data-dismiss="modal"
+              >Log In</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+      <!-- FORGOT PASSWORD -->
+      <div id="forgotPassword" class="modal fade modal--default" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header d-flex align-items-center">
+              <h5 class="modal-title">Forgot Password</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form class="py-2">
+                <div class="input-group mb-3 input-group--white">
+                  <div class="input-group-prepend">
+                    <span id="addonEmail" class="input-group-text">
+                      <i class="fas fa-envelope"></i>
+                    </span>
+                  </div>
+                  <input type="email" name="" id="email" class="form-control form-control-lg" placeholder="Email" maxlenght="64" minlenght="7" required="" aria-label="Email"
+                  aria-describedby="addonEmail"/>
+                </div>
+                <button
+                type="submit"
+                class="btn btn-block btn-lg btn-primary mb-3"
+              >
+                Reset Password
+              </button>
+              <p class="text-center">or <a href="#" data-toggle="modal" data-target="#loginModal" data-dismiss="modal">Log In</a></p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <!-- jQuery -->
+    <script
+      src="http://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Bootstrap -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Custom JavaScript -->
+    <script src="app.js"></script>
+    <script>
+      // Get the current year for the copyright
+      $("#year").text(new Date().getFullYear());
+
+      // Init tooltips
+      $('[data-toggle="tooltip"]').tooltip();
+
+      // Init Scrollspy
+      $("body").scrollspy({ target: "#main-navigation" });
+
+      // Smooth Scrolling
+      $("#main-navigation a").on("click", function(event) {
+        if (this.hash !== "") {
+          event.preventDefault();
+
+          const hash = this.hash;
+
+          $("html, body").animate(
+            {
+              scrollTop: $(hash).offset().top
+            },
+            800,
+            function() {
+              window.location.hash = hash;
+            }
+          );
+        }
+      });
+    </script>
+  </body>
+</html>
