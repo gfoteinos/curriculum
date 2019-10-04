@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <!-- Fontawesome -->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+      integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+      crossorigin="anonymous"
+    />
+    <!-- Devicon Icon Set -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.rawgit.com/konpa/devicon/df6431e323547add1b4cf45992913f15286456d3/devicon.min.css"
+    />
+
+    <!-- Bootstrap  -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Custom css -->
+    <link rel="stylesheet" href="css/style.css" />
+    <title>University</title>
+  </head>
+
+  <body data-spy="scroll" data-target="#main-navigation">
+    <!-- NAVBAR -->
+    <nav
+      id="main-navigation"
+      class="navbar navbar-expand-xl navbar-light bg-light py-4 main-nav"
+    >
+      <div class="container">
+        <a href="index.html" class="navbar-brand">
+          <h3 class="d-inline align-middle">
+            University
+            <span>
+              <h2><strong>Curriculum</strong></h2>
+            </span>
+          </h3>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarCollapse"
+          aria-controls="navbarCollapse"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav mb-3 mb-xl-0 mx-auto main-nav--login-main-links">
+            <li class="nav-item">
+              <a href="#courses" class="nav-link">Courses</a>
+            </li>
+            <li class="nav-item">
+              <a href="#modules" class="nav-link">Modules</a>
+            </li>
+            <li class="nav-item">
+              <a href="#facultyMembers" class="nav-link">Faculty Members</a>
+            </li>
+            <li class="nav-item">
+              <a href="#students" class="nav-link">Students</a>
+            </li>
+          </ul>
+          <ul class="navbar-nav ml-auto c-nav-register main-nav--login-secondary-links">
+            <li class="nav-item dropdown mb-lg-0 mr-lg-2">
+              <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                Welcome SM
+              </a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="faculty-profile-list-tabs.html">
+                  <i class="fa fa-user-circle"></i> Profile
+                </a>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a href="index.html" class="nav-link">
+                Log-out
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    
+    <!-- PROFILE HEADER -->
+    <header id="main-header" class="profile-header py-4 bg-dark text-light">
+      <div class="container">
+        <div class="card text-center bg-dark text-light border-0 card-profile-heading">
+          <div class="row">
+            <!-- AVATAR -->
+            <div class="col-lg-4 d-flex justify-content-center align-items-center">
+              <img src="img/Modules/statistics.png" class="img-fluid img-course" alt="Course photo">
+            </div>
+            <!-- BODY -->
+            <div class="col-lg-8 pl-lg-0 d-flex align-items-center">
+              <div class="card-body">
+                <h3 class="card-title text-lg-left">Statistics</h3>
+                <h4 class="card-subtitle text-muted text-lg-left mb-3">Mathematics</h4>
+                <p class="card-text text-left card--drop-caps">
+                  Statistics is a branch of mathematics working with data collection, organization, analysis, interpretation and presentation. In applying statistics to a scientific, industrial, or social problem, it is conventional to begin with a statistical population or a statistical model to be studied. Populations can be diverse groups of people or objects such as "all people living in a country" or "every atom composing a crystal". Statistics deals with every aspect of data, including the planning of data collection in terms of the design of surveys and experiments. See glossary of probability and statistics. 
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section id="moduleDetails">
+      <div class="container py-5 bg-white">
+        <div class="row pt-3 pb-5 py-lg-5">
+          <div class="col-lg-6">
+            <div class="card shadow mb-5 mb-lg-0">
+              <div class="card-body">
+                <h3 class="card-title">Lectures Calendar</h3>
+                <div class="table-responsive">
+                  <table class="table">
+                    <caption class="h5 py-0 sr-only">Lectures Calendar</caption>
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Time</th>
+                        <th scope="col">Class</th> 
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">1</th>
+                        <td>Monday</td>
+                        <td>10:00 - 12:00</td>
+                        <td>3B12</td>     
+                      </tr>
+                      <tr>
+                        <th scope="row">2</th>
+                        <td>Wednesday</td>
+                        <td>10:00 - 12:00</td>
+                        <td>3B12</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">3</th>
+                        <td>Friday</td>
+                        <td>12:00 - 14:00</td>
+                        <td>4A07</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="card shadow">
+              <div class="card-body">
+                <h3 class="card-title">Notes</h3>
+                <div class="table-responsive">
+                  <table class="table">
+                    <caption class="h5 py-0 sr-only">Notes</caption>
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Tutor</th>
+                        <th scope="col">
+                          <i class="fas fa-cloud-download-alt"></i>
+                        </th> 
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">1</th>
+                        <td>Statistics 1</td>
+                        <td>Henry Duncan</td>
+                        <td>
+                          <a href="" class="">
+                            <i class="far fa-file-pdf"></i>
+                          </a>
+                        </td>     
+                      </tr>
+                      <tr>
+                        <th scope="row">2</th>
+                        <td>Statistics 2</td>
+                        <td>Megan Payne</td>
+                        <td>
+                          <a href="" class="">
+                            <i class="far fa-file-powerpoint"></i>
+                          </a>
+                        </td>     
+                      </tr>
+                      <tr>
+                        <th scope="row">3</th>
+                        <td>Statistics 3</td>
+                        <td>Sarah Baker</td>
+                        <td>
+                          <a href="" class="">
+                            <i class="far fa-file-word"></i>
+                          </a>
+                        </td>     
+                      </tr>
+                      <tr>
+                        <th scope="row">4</th>
+                        <td>Statistics 4</td>
+                        <td>Henry Duncan</td>
+                        <td>
+                          <a href="" class="">
+                            <i class="far fa-file-archive"></i>
+                          </a>
+                        </td>     
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row pt-3 pb-5 py-lg-5">
+          <div class="col-lg-6">
+            <div class="card shadow mb-5 mb-lg-0">
+              <div class="card-body">
+                <h3 class="card-title">Courseworks Calendar</h3>
+                <div class="table-responsive">
+                  <table class="table">
+                    <caption class="h5 py-0 sr-only">Courseworks Calendar</caption>
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Due Date</th>
+                        <th scope="col">
+                          <i class="fas fa-cloud-download-alt"></i>
+                        </th> 
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">1</th>
+                        <td>Coursework 1</td>
+                        <td>5/11/2019</td>
+                        <td>
+                          <a href="" class="">
+                            <i class="far fa-file-pdf"></i>
+                          </a>
+                        </td>     
+                      </tr>
+                      <tr>
+                        <th scope="row">2</th>
+                        <td>Coursework 2</td>
+                        <td>24/1/2020</td>
+                        <td>
+                          <a href="" class="">
+                            <i class="far fa-file-pdf"></i>
+                          </a>
+                        </td>     
+                      </tr>
+                      <tr>
+                        <th scope="row">3</th>
+                        <td>Coursework 3</td>
+                        <td>3/4/2020</td>
+                        <td>
+                          <a href="" class="">
+                            <i class="far fa-file-pdf"></i>
+                          </a>
+                        </td>     
+                      </tr>
+                      <tr>
+                        <th scope="row">4</th>
+                        <td>Coursework 4</td>
+                        <td>15/5/2020</td>
+                        <td>
+                          <a href="" class="">
+                            <i class="far fa-file-pdf"></i>
+                          </a>
+                        </td>     
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="card text-center shadow">
+              <div class="card-body ">
+                <h3 class="card-title mb-4">Exams</h3>
+                <h4 class="h2 card-subtitle text-muted mb-3">15/6/2020 10:00 am</h4>
+                <h5 class="h2 card-details text-center text-muted">Building: B12A</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section> 
+
+    <section id="courseFacultyMembers" class="bg-light">
+      <div class="container py-5">
+        <h1 class="text-center mt-3 mb-0 mb-sm-5">Tutors</h1>
+        <div class="row py-5">
+          <div class="col-sm-6 col-lg-4 mb-3 mb-sm-5 py-sm-4 pb-md-5 mb-xl-0 pb-xl-3">
+            <div class="card card-profile text-center border-0 shadow">
+              <div class="card-body pb-0">
+                <img src="img/tutors/m-2.jpg" class="d-none d-sm-inline img-fluid mb-3 avatar-small avatar--rounded avatar--border-blue shadow" alt="Faculty member photo">
+                <h3 class="card-title">Henry Duncan</h3>
+                <h4 class="card-subtitle text-muted mb-3">Department Head</h4>
+                <h5 class="card-details text-center">School of Mathematical Sciences</h5>
+                <h5 class="card-details text-center">Professor</h3>
+                <!-- Social Media -->
+                <div class="d-flex justify-content-center my-4">
+                  <span class="mr-5">
+                    <a href="#" class="">
+                      <i class="fab fa-facebook-f"></i>
+                    </a>
+                  </span>
+                  <span class="mr-5">
+                    <a href="#" class="">
+                      <i class="fab fa-twitter"></i>
+                    </a>
+                  </span>
+                  <span>
+                    <a href="#" class="">
+                      <i class="fab fa-linkedin-in"></i>
+                    </a>
+                  </span>
+                </div>
+              </div>
+              <div class="card-footer bg-white py-0">
+                <div class="row">
+                  <div class="col-6 d-flex justify-content-between align-items-center border-right py-2">
+                    <!-- Email - Tel -->
+                    <small class="text-muted card-email">
+                      <i class="far fa-envelope " data-toggle="tooltip" data-placement="top" title="henrywarren@mathdep.com"></i> 
+                      <span class="d-none d-lg-inline"></span>
+                    </small>
+                    <small class="text-muted card-tel">
+                      <i class="fas fa-phone" data-toggle="tooltip" data-placement="top" title="1234 555 555"></i> 
+                      <span class="d-none d-lg-inline"></span> 
+                    </small>
+                    <small class="text-muted card-office">
+                      <i class="far fa-building" data-toggle="tooltip" data-placement="top" title="Office: BA327"></i> 
+                      <span class="d-none d-lg-inline"></span> 
+                    </small>
+                  </div>
+                  <div class="col-6 d-flex justify-content-center align-items-center border-left py-2">
+                    <a href="faculty-page.html" class="text-uppercase">Read More</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-lg-4 mb-3 mb-sm-5 py-sm-4 pb-md-5 mb-xl-0 pb-xl-3">
+            <div class="card card-profile text-center border-0 shadow h-100">
+              <div class="card-body pb-0">
+                <img src="img/tutors/f-1.jpg" class="d-none d-sm-inline img-fluid mb-3 avatar-small avatar--rounded avatar--border-blue shadow" alt="Faculty member photo">
+                <h3 class="card-title">Megan Payne</h3>
+                <!-- <h4 class="card-subtitle text-muted mb-3">Department Head</h4> -->
+                <h5 class="card-details text-center">School of Mathematical Sciences</h5>
+                <h5 class="card-details text-center">Lecturer</h3>
+                <!-- Social Media -->
+                <div class="d-flex justify-content-center my-4">
+                  <span class="mr-5">
+                    <a href="#" class="">
+                      <i class="fab fa-facebook-f"></i>
+                    </a>
+                  </span>
+                  <span class="mr-5">
+                    <a href="#" class="">
+                      <i class="fab fa-twitter"></i>
+                    </a>
+                  </span>
+                  <span>
+                    <a href="#" class="">
+                      <i class="fab fa-linkedin-in"></i>
+                    </a>
+                  </span>
+                </div>
+              </div>
+              <div class="card-footer bg-white py-0">
+                <div class="row">
+                  <div class="col-6 d-flex justify-content-between align-items-center border-right py-2">
+                    <!-- Email - Tel -->
+                    <small class="text-muted card-email">
+                      <i class="far fa-envelope " data-toggle="tooltip" data-placement="top" title="henrywarren@mathdep.com"></i> 
+                      <span class="d-none d-lg-inline"></span>
+                    </small>
+                    <small class="text-muted card-tel">
+                      <i class="fas fa-phone" data-toggle="tooltip" data-placement="top" title="1234 555 555"></i> 
+                      <span class="d-none d-lg-inline"></span> 
+                    </small>
+                    <small class="text-muted card-office">
+                      <i class="far fa-building" data-toggle="tooltip" data-placement="top" title="Office: BA327"></i> 
+                      <span class="d-none d-lg-inline"></span> 
+                    </small>
+                  </div>
+                  <div class="col-6 d-flex justify-content-center align-items-center border-left py-2">
+                    <a href="" class="text-uppercase">Read More</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-lg-4 mb-3 mb-sm-5 py-sm-4 pb-md-5 mb-xl-0 pb-xl-3">
+            <div class="card card-profile text-center border-0 shadow h-100">
+              <div class="card-body pb-0">
+                <img src="img/tutors/f-3.jpg" class="d-none d-sm-inline img-fluid mb-3 avatar-small avatar--rounded avatar--border-blue shadow" alt="Faculty member photo">
+                <h3 class="card-title">Sarah Baker</h5>
+                <!-- <h4 class="card-subtitle text-muted mb-3">Department Head</h4> -->
+                <h5 class="card-details text-center">School of Mathematical Sciences</h5>
+                <h5 class="card-details text-center">Research Assistant</h3>
+                <!-- Social Media -->
+                <div class="d-flex justify-content-center my-4">
+                  <span class="mr-5">
+                    <a href="#" class="">
+                      <i class="fab fa-facebook-f"></i>
+                    </a>
+                  </span>
+                  <span class="mr-5">
+                    <a href="#" class="">
+                      <i class="fab fa-twitter"></i>
+                    </a>
+                  </span>
+                  <span>
+                    <a href="#" class="">
+                      <i class="fab fa-linkedin-in"></i>
+                    </a>
+                  </span>
+                </div>
+              </div>
+              <div class="card-footer bg-white py-0">
+                <div class="row">
+                  <div class="col-6 d-flex justify-content-between align-items-center border-right py-2">
+                    <!-- Email - Tel -->
+                    <small class="text-muted card-email">
+                      <i class="far fa-envelope " data-toggle="tooltip" data-placement="top" title="henrywarren@mathdep.com"></i> 
+                      <span class="d-none d-lg-inline"></span>
+                    </small>
+                    <small class="text-muted card-tel">
+                      <i class="fas fa-phone" data-toggle="tooltip" data-placement="top" title="1234 555 555"></i> 
+                      <span class="d-none d-lg-inline"></span> 
+                    </small>
+                    <small class="text-muted card-office">
+                      <i class="far fa-building" data-toggle="tooltip" data-placement="top" title="Office: BA327"></i> 
+                      <span class="d-none d-lg-inline"></span> 
+                    </small>
+                  </div>
+                  <div class="col-6 d-flex justify-content-center align-items-center border-left py-2">
+                    <a href="" class="text-uppercase">Read More</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+
+    <!-- FOOTER -->
+    <footer id="main-footer" class="bg-dark py-5 text-light">
+      <div class="container py-5 text-center">
+        <div class="row pb-4">
+          <div class="col">
+            <h2>A Curriculum for Everyone.</h2>
+            <p class="lead">Simple And Effective</p>
+            <a href="#" class="btn btn-outline-primary btn-lg" role="button">
+              Start
+            </a>
+          </div>
+        </div>
+        <hr class="col-8 col-md-6" />
+        <div class="row pt-4 pb-4">
+          <div class="col col-md-9 m-auto">
+            <h2 class="mb-4">The App Is Powered By</h2>
+            <ul class="nav d-flex justify-content-between col-11 mx-auto">
+              <li class="nav-item">
+                <i
+                  class="devicon-html5-plain"
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="HTML 5"
+                ></i>
+                <p>HTML 5</p>
+              </li>
+              <li class="nav-item">
+                <i
+                  class="devicon-css3-plain"
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="CSS 3"
+                ></i>
+                <p>CSS 3</p>
+              </li>
+              <li class="nav-item">
+                <i
+                  class="devicon-javascript-plain"
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="JavaScript"
+                ></i>
+                <p>JavaScript</p>
+              </li>
+              <li class="nav-item">
+                <i
+                  class="devicon-bootstrap-plain"
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="Bootstrap"
+                ></i>
+                <p>BootStrap</p>
+              </li>
+              <li class="nav-item">
+                <i
+                  class="devicon-nodejs-plain"
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="Node.js"
+                ></i>
+                <p>Node-JS</p>
+              </li>
+              <li class="nav-item">
+                <i
+                  class="devicon-express-original"
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="Express"
+                ></i>
+                <p>Express</p>
+              </li>
+              <li class="nav-item">
+                <i
+                  class="devicon-mongodb-plain"
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="MongoDB"
+                ></i>
+                <p>Mongo-db</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <p class="lead">
+              copyright &copy; George Foteinos <span id="year"></span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- MODALS -->
+
+    <!-- CHANGE EMAIL MODAL -->
+    <div id="changeEmailModal" class="modal fade modal--default" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header d-flex align-items-center">
+            <h5 class="modal-title">Change Your Email</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form class="py-2">
+              <!-- Current Email -->
+              <div class="form-group">
+                <label for="currentEmail">Current Email</label>
+                <div class="input-group input-group--white mb-3">
+                  <div class="input-group-prepend">
+                    <span id="addonCurrentEmail" class="input-group-text">
+                      <i class="fas fa-envelope"></i>
+                    </span>
+                  </div>
+                  <input
+                    type="email"
+                    name=""
+                    id="currentEmail"
+                    class="form-control form-control-lg"
+                    placeholder=""
+                    maxlength="64" minlength="7"
+                    required=""
+                    aria-label="Current Email"
+                    aria-describedby="addonCurrentEmail"
+                  />
+                </div>
+              </div>
+              <!-- New Email -->
+              <div class="form-group">
+                <label for="newEmail">New Email</label>
+                <div class="input-group input-group--white mb-3">
+                  <div class="input-group-prepend">
+                    <span id="addonNewEmail" class="input-group-text">
+                      <i class="fas fa-envelope"></i>
+                    </span>
+                  </div>
+                  <input
+                    type="email"
+                    name=""
+                    id="newEmail"
+                    class="form-control form-control-lg"
+                    placeholder=""
+                    maxlength="64" minlength="7"
+                    required=""
+                    aria-label="New Email"
+                    aria-describedby="addonNewEmail"
+                  />
+                </div>
+              </div>  
+              <button
+                type="submit"
+                class="form-control btn btn-block btn-lg btn-primary"
+              >
+                Save
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADD EDIT MODULE MARKS MODAL -->
+    <div id="editModuleMarksModal" class="modal fade modal--default" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header d-flex align-items-center">
+            <h5 class="modal-title">Add Marks</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="table-responsive">
+              <table class="table">
+                <caption class="h5 py-0">Module-Name Marks</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Full Name</th>
+                    <th scope="col">Marks (%)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>Jhon Doe</td>
+                    <td>
+                      <label for="moduleMark" class="sr-only">Class</label>
+                      <input type="text" name="" id="modulemark" class="form-control very-short-width" max-length="2">
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">2</th>
+                    <td>Jane Smith</td>
+                    <td>
+                      <label for="moduleMark" class="sr-only">Class</label>
+                      <input type="text" name="" id="modulemark" class="form-control very-short-width" max-length="2">
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">3</th>
+                    <td>Richard Tucker</td>
+                    <td>
+                      <label for="moduleMark" class="sr-only">Class</label>
+                      <input type="text" name="" id="modulemark" class="form-control very-short-width" max-length="2">
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">4</th>
+                    <td>Kathryn Johnson</td>
+                    <td>
+                      <label for="moduleMark" class="sr-only">Class</label>
+                      <input type="text" name="" id="modulemark" class="form-control very-short-width" max-length="2">
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">5</th>
+                    <td>Henry Warren</td>
+                    <td>
+                      <label for="moduleMark" class="sr-only">Class</label>
+                      <input type="text" name="" id="modulemark" class="form-control very-short-width" max-length="2">
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">6</th>
+                    <td>Lauren Patterson</td>
+                    <td>
+                      <label for="moduleMark" class="sr-only">Class</label>
+                      <input type="text" name="" id="modulemark" class="form-control very-short-width" max-length="2">
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">7</th>
+                    <td>Adam Rodriguez</td>
+                    <td>
+                      <label for="moduleMark" class="sr-only">Class</label>
+                      <input type="text" name="" id="modulemark" class="form-control very-short-width" max-length="2">
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">8</th>
+                    <td>Laura Dixon</td>
+                    <td>
+                      <label for="moduleMark" class="sr-only">Class</label>
+                      <input type="text" name="" id="modulemark" class="form-control very-short-width" max-length="2">
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">9</th>
+                    <td>Henry Duncan</td>
+                    <td>
+                      <label for="moduleMark" class="sr-only">Class</label>
+                      <input type="text" name="" id="modulemark" class="form-control very-short-width" max-length="2">
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">10</th>
+                    <td>Megan Payne</td>
+                    <td>
+                      <label for="moduleMark" class="sr-only">Class</label>
+                      <input type="text" name="" id="modulemark" class="form-control very-short-width" max-length="2">
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="d-flex justify-content-end mt-3">
+              <button type="button" class="btn btn-primary mr-2" data-dismiss="modal">
+                Save Marks
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- jQuery -->
+    <script
+      src="http://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Bootstrap -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- CKEditor WYSWYG editor  -->
+    <script src="https://cdn.ckeditor.com/4.11.4/standard/ckeditor.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script>
+      // Get the current year for the copyright
+      $("#year").text(new Date().getFullYear());
+
+      $('#editProfile-list a').on('click', function (e) {
+        e.preventDefault()
+        $(this).tab('show')
+      })
+      
+      // Init tooltips
+      $('[data-toggle="tooltip"]').tooltip();
+
+      $('#birds a').on('click', function (e) {
+        e.preventDefault()
+        $(this).tab('show')
+      })
+
+      $(document).ready(function() {
+        $("#myCarousel").on("slide.bs.carousel", function(e) {
+          var $e = $(e.relatedTarget);
+          var idx = $e.index();
+          var itemsPerSlide = 3;
+          var totalItems = $(".carousel-item").length;
+
+          if (idx >= totalItems - (itemsPerSlide - 1)) {
+            var it = itemsPerSlide - (totalItems - idx);
+            for (var i = 0; i < it; i++) {
+              // append slides to end
+              if (e.direction == "left") {
+                $(".carousel-item")
+                  .eq(i)
+                  .appendTo(".carousel-inner");
+              } else {
+                $(".carousel-item")
+                  .eq(0)
+                  .appendTo($(this).find(".carousel-inner"));
+              }
+            }
+          }
+        });
+      });
+
+
+      // Initialize CKEditor
+      CKEDITOR.replace( 'editor1' );
+
+      // Init Scrollspy
+      // $("body").scrollspy({ target: "#main-nav" });
+
+      // Smooth Scrolling
+      // $("#main-nav a").on("click", function(event) {
+      //   if (this.hash !== "") {
+      //     event.preventDefault();
+
+      //     const hash = this.hash;
+
+      //     $("html, body").animate(
+      //       {
+      //         scrollTop: $(hash).offset().top
+      //       },
+      //       800,
+      //       function() {
+      //         window.location.hash = hash;
+      //       }
+      //     );
+      //   }
+      // });
+    </script>
+  </body>
+</html>
