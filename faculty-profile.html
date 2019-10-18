@@ -496,7 +496,7 @@
                               </tr>
                             </thead>
                             <tbody>
-                              <tr>
+                              <!-- <tr>
                                 <th scope="row">1</th>
                                 <td>Statistics</td>
                                 <td>Mathematics</td>
@@ -555,12 +555,12 @@
                                     <label class="custom-control-label" for="listMCMM"></label>
                                   </div>
                                 </td>
-                              </tr>
+                              </tr> -->
                             </tbody>
                           </table>
                         </div>
                         <div class="d-flex justify-content-end mt-3">
-                          <button type="button" class="btn btn-primary mr-2" data-toggle="collapse" data-target="#addModulesCollapse">
+                          <button id="addModule" type="button" class="btn btn-primary mr-2" data-toggle="collapse" data-target="#addModulesCollapse">
                             Add Module
                           </button>
                           <button type="button" class="btn btn-danger" disabled>
@@ -812,7 +812,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr class="text-muted">
+                      <!-- <tr class="text-muted">
                         <th scope="row">1</th>
                         <td>Statistics</td>
                         <td>Mathematics</td>
@@ -981,12 +981,12 @@
                             <label class="custom-control-label" for="addDataBasesWeb"></label>
                           </div>
                         </td>
-                      </tr>
+                      </tr> -->
                     </tbody>
                   </table>
                 </div>
                 <div class="d-flex justify-content-end mt-3">
-                  <button type="button" class="btn btn-primary mr-2">
+                  <button id="add-module-btn" type="button" class="btn btn-primary mr-2">
                     <i class="fas fa-plus"></i>
                   </button>
                 </div>
@@ -1308,6 +1308,7 @@
     <script src="https://cdn.ckeditor.com/4.11.4/standard/ckeditor.js"></script>
 
     <!-- Custom JavaScript -->
+    <script src="app.js"></script>
     <script>
       // Get the current year for the copyright
       $("#year").text(new Date().getFullYear());
