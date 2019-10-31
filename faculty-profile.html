@@ -489,8 +489,8 @@
                                 <th scope="col">Level</th>
                                 <th scope="col">
                                   <div class="custom-control custom-checkbox checkThemAll">
-                                    <input type="checkbox" class="custom-control-input" id="taughtModulesCheckAll">
-                                    <label class="custom-control-label" for="taughtModulesCheckAll"></label>
+                                    <input type="checkbox" class="custom-control-input" id="tmCheckAll">
+                                    <label class="custom-control-label" for="tmCheckAll"></label>
                                   </div>
                                 </th>
                               </tr>
@@ -563,7 +563,7 @@
                           <button id="addModuleCollapseBtn" type="button" class="btn btn-primary mr-2" data-toggle="collapse" data-target="#addModulesCollapse">
                             Add Module
                           </button>
-                          <button id="deleteModule" type="button" class="btn btn-danger">
+                          <button id="deleteModules" type="button" class="btn btn-danger">
                             Delete
                           </button>
                         </div>
@@ -580,15 +580,15 @@
                                 <th scope="col">Due Date</th>
                                 <th scope="col">Edit</th>
                                 <th scope="col">
-                                  <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="cwDeleteAll">
-                                    <label class="custom-control-label" for="cwDeleteAll"></label>
+                                  <div class="custom-control custom-checkbox checkThemAll">
+                                    <input type="checkbox" class="custom-control-input" id="cwCheckAll">
+                                    <label class="custom-control-label" for="cwCheckAll"></label>
                                   </div>
                                 </th>
                               </tr>
                             </thead>
                             <tbody>
-                              <tr>
+                              <!-- <tr>
                                 <th scope="row">1</th>
                                 <td>Statistics</td>
                                 <td>3/4/2019</td>
@@ -645,12 +645,12 @@
                                     <label class="custom-control-label" for="cwNew"></label>
                                   </div>
                                 </td>
-                              </tr>
+                              </tr> -->
                             </tbody>
                           </table>
                         </div>
                         <div class="d-flex justify-content-end mt-3">
-                          <button type="button" class="btn btn-danger" disabled>
+                          <button id="deleteCourseworks" type="button" class="btn btn-danger">
                             Delete
                           </button>
                         </div>
@@ -668,7 +668,7 @@
                                 <th scope="col">Class</th>
                                 <th scope="col">Edit</th>
                                 <th>
-                                  <div class="custom-control custom-checkbox">
+                                  <div class="custom-control custom-checkbox checkThemAll">
                                     <input type="checkbox" class="custom-control-input" id="exDeleteAll">
                                     <label class="custom-control-label" for="exDeleteAll"></label>
                                   </div>
@@ -805,8 +805,8 @@
                         <th scope="col">Level</th>
                         <th scope="col">
                           <div class="custom-control custom-checkbox checkThemAll">
-                            <input type="checkbox" class="custom-control-input" id="addModulesCheckAll">
-                            <label class="custom-control-label" for="addModulesCheckAll"></label>
+                            <input type="checkbox" class="custom-control-input" id="amCheckAll">
+                            <label class="custom-control-label" for="amCheckAll"></label>
                           </div>
                         </th>
                       </tr>
@@ -986,7 +986,7 @@
                   </table>
                 </div>
                 <div class="d-flex justify-content-end mt-3">
-                  <button id="add-module-btn" type="button" class="btn btn-primary mr-2">
+                  <button id="addModules" type="button" class="btn btn-primary mr-2">
                     <i class="fas fa-plus"></i>
                   </button>
                 </div>

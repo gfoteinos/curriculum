@@ -1,7 +1,7 @@
 /*
 * What is left to do 
 * ---------------------
-*  Fix populate data to follow local storage saving procedure
+*  
 */
 
 // Controllers
@@ -79,6 +79,10 @@ const ItemCtrl = (function () {
           {id:7, name: 'Computation', course: 'Artificial Inteligence', level: 'Master'},
           {id:8, name: 'Introduction to Object-Oriented Programming', course: 'Computing', level: 'Bachelor'},
           {id:9, name: 'Databases and the Web', course: 'Computing', level: 'Master'}
+      ],
+      courseworks: [
+        {id:0, name: 'Statistics', DueDate: '3/4/2019'},
+        {id:1, name: 'Computation', DueDate: '16/5/2019'}
       ]
     }
 
@@ -123,6 +127,21 @@ const ItemCtrl = (function () {
     // // Remove the item from data using the index above
     //   data.facultyModules.splice(index, 1);
     // }
+    deleteCoursework: function(id) {
+      // Get the courseworks ids from data
+      let ids = data.courseworks.map(function(coursework) {
+        return coursework.id;
+      });
+
+    // Find the index of deleted item
+      let index = ids.indexOf(id)
+
+    // Remove the item from data using the index above
+      data.courseworks.splice(index, 1);
+    },
+    getCourseworks: function() {
+      return data.courseworks;
+    }
   }
 })();
 
@@ -132,19 +151,24 @@ const UICtrl = (function () {
   const UISelectors = {
     // All Page 
     pageCheckCheckboxAll: '.checkThemAll .custom-control-input',
+    // All Modules Tabs 
+    modulesTabs: '#modulesTabs',
     // Tab Modules List 
+    tabModulesAddModuleBtn: 'addModuleCollapseBtn',
+    tabModulesDeleteBtn: '#deleteModules',
     tabModulesTaughtModules: '#taughtModules tbody',
     tabModulesTaughtModulesCheckboxes: '#taughtModules tbody .custom-control-input',
-    tabModulesTaughtModulesCheckboxAll: '#taughtModulesCheckAll',
+    tabModulesTaughtModulesCheckboxAll: '#tmCheckAll',
     tabModulesAddModulesCollapse: '#addModulesCollapse',
     tabModulesAddModules: '#addModulesCollapse tbody',
-    tabModulesAddModuleBtn: 'addModuleCollapseBtn',
-    tabModulesDeleteBtn: '#deleteModule',
-    tabModulesAddModulesPlusBtn: '#add-module-btn',
+    tabModulesAddModulesPlusBtn: '#addModules',
     tabModulesAddModulesCheckboxes: '#addModulesCollapse tbody .custom-control-input',
-    tabModulesAddModulesCheckboxAll: '#addModulesCheckAll', 
-    // Tab Courseworks calendar 
-    modulesTabs: '#modulesTabs'
+    tabModulesAddModulesCheckboxAll: '#amCheckAll', 
+    // Tab Courseworks calendar
+    tabCourseworks: '#courseworksCalendar tbody',
+    tabCourseworksDeleteBtn: '#deleteCourseworks',
+    tabCourseworksCheckboxes: '#courseworksCalendar tbody .custom-control-input', 
+    tabCourseworksCheckboxAll: '#cwCheckAll'
   }
 
   // Public Methods 
@@ -224,6 +248,74 @@ const UICtrl = (function () {
       // Insert html code 
       document.querySelector(UISelectors.tabModulesAddModules).innerHTML = html;
     },
+    populateCourseworks: function(courseworks) {
+      // Initialize html var 
+      html='';
+ 
+      // Built html code for "Courseworks calendar" list
+      courseworks.forEach(function(coursework, index) {
+        // Building html code 
+        html+=`
+        <tr>
+          <th scope="row">${index+1}</th>
+          <td>${coursework.name}</td>
+          <td>${coursework.DueDate}</td>
+          <td>
+            <button type="button" class="btn btn-sm btn-primary ">
+              <i class="fas fa-pencil-alt"></i>
+            </button>
+          </td>
+          <td>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="cw-${coursework.id}">
+              <label class="custom-control-label" for="cw-${coursework.id}"></label>
+            </div>
+          </td>
+        </tr>`;
+      }); 
+
+      // Built html code for HTML "select" element
+        // Get "Taught Module" list to fill in the "select" html element 
+        const taughtModules = StorageCtrl.getModulesFromTaughtModules(); 
+        
+        // Building html code
+        html+= `
+        <tr>
+          <th scope="row">#</th>
+          <td>
+            <select class="custom-select">
+              <option selected>Select Module</option>
+        `
+        taughtModules.forEach(function(module, index) {
+          html+=`
+            <option value="${index+1}">${module.name}</option>
+          `
+        });
+        
+        html+= ` 
+            </select>
+          </td>
+          <td>
+            <label for="courseworksDate" class="sr-only">Coursework Date</label>
+            <input type="date" class="form-control" id="courseworksDate">
+          </td>
+          <td>
+            <button type="button" class="btn btn-sm btn-primary">
+              <i class="fas fa-plus"></i>
+            </button>
+          </td>
+          <td>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="cwNew" disabled>
+              <label class="custom-control-label" for="cwNew"></label>
+            </div>
+          </td>
+        </tr>`;
+        
+      
+      // Insert html code 
+      document.querySelector(UISelectors.tabCourseworks).innerHTML = html;
+    },
     addModule: function(module) {
       // Get taught module list to use it's length as index in new module
       const rowNumber = StorageCtrl.getModulesFromTaughtModules().length;
@@ -252,23 +344,30 @@ const UICtrl = (function () {
     //   module.parentNode.parentNode.parentNode.remove();
     // },
     getCheckBoxes: function(flag) {
-      const addModulesCheckBoxes = document.querySelectorAll(UISelectors.tabModulesAddModulesCheckboxes);
-      const taughtModulesCheckBoxes = document.querySelectorAll(UISelectors.tabModulesTaughtModulesCheckboxes);
+      // Gather checkboxes
+      const addModulesCheckboxes = document.querySelectorAll(UISelectors.tabModulesAddModulesCheckboxes);
+      const taughtModulesCheckboxes = document.querySelectorAll(UISelectors.tabModulesTaughtModulesCheckboxes);
+      const courseworksCheckboxes = document.querySelectorAll(UISelectors.tabCourseworksCheckboxes);
       
       if (flag === 'addModules') {
-        return addModulesCheckBoxes;
+        return addModulesCheckboxes;
       } else if(flag === 'taughtModules') {
-        return taughtModulesCheckBoxes;
+        return taughtModulesCheckboxes;
+      } else if(flag === 'courseworks') {
+        return courseworksCheckboxes;
       }
     },
     uncheckCheckboxAll_checkbox: function(flag) {
       const addModulesCheckboxAll = document.querySelector(UISelectors.tabModulesAddModulesCheckboxAll);
       const taughtModulesCheckboxAll = document.querySelector(UISelectors.tabModulesTaughtModulesCheckboxAll);
+      const courseworksCheckboxAll = document.querySelector(UISelectors.tabCourseworksCheckboxAll);
    
       if(flag === 'addModules') {
         addModulesCheckboxAll.checked = false;
       } else if(flag === 'taughtModules') {
         taughtModulesCheckboxAll.checked = false;
+      } else if(flag === 'courseworks') {
+        courseworksCheckboxAll.checked = false;
       }
     },
     uncheckCheckboxes: function(flag) {
@@ -341,185 +440,268 @@ const App = (function (ItemCtrl, StorageCtrl, UICtrl) {
         document.querySelector(UISelectors.tabModulesAddModulesCheckboxAll).addEventListener('click', checkUncheckAllFromAddModules);
 
         // Check/uncheck all from "Taught Modules" list event
-        document.querySelector(UISelectors.tabModulesTaughtModulesCheckboxAll).addEventListener('click', checkUncheckAllFromTaughtModules);  
+        document.querySelector(UISelectors.tabModulesTaughtModulesCheckboxAll).addEventListener('click', checkUncheckAllFromTaughtModules); 
+
+      // Tab Courseworks calendar
+        // Delete coursework event
+        document.querySelector(UISelectors.tabCourseworksDeleteBtn).addEventListener('click', deleteCoursework);
+
+         // Check/uncheck all from "Courseworks Calendar" list event
+         document.querySelector(UISelectors.tabCourseworksCheckboxAll).addEventListener('click', checkUncheckAllCourseworks);
     }
     
-    // Add module 
-    const addModule = function(e) {
-
-      // Add checked modules to "Taught Modules" list 
-        // Gather "Add Modules" list checkboxes from UI 
-        let checkboxes = UICtrl.getCheckBoxes('addModules');
-        
-        // Convert to Array 
-        checkboxes = Array.from(checkboxes);
-        
-        // Update UI lists flag
-        let moduleAdded = false;
-
-        // Loop through "Add Modules" list and add checked modules to "Taught Modules" list 
-        checkboxes.forEach(function(checkbox) {
-          if(checkbox.checked === true) {
-          // Get checked module id 
-          let checkboxID = checkbox.id;
-          checkboxID = checkboxID.split('-');
-          const id = parseInt(checkboxID[1]);
-
-          // Get module from data structure (from module table)
-          moduleToAdd = ItemCtrl.getModuleByID(id);
-
-          // Create new module 
-          const newModule = ItemCtrl.createModule(moduleToAdd.id, moduleToAdd.name, moduleToAdd.course, moduleToAdd.level);
-
-          // // Update data structure (hardcoded data: faculty module table) 
-          // ItemCtrl.addModule(newModule);
-
-          // Store module to local storage (in "taughtModules" table) 
-          StorageCtrl.storeTaughtModules(newModule);
-
-          // Update UI "Taught Modules" list 
-          UICtrl.addModule(newModule);
-
-          // Update UI list flag
-          moduleAdded = true;
-          }
-        });
-
-        // Uncheck checkboxes of "Add Module" list 
-          // Uncheck "checkbox all" in case of it was checked
-          UICtrl.uncheckCheckboxAll_checkbox('addModules');
-
-        if(moduleAdded) {
-          // Update "Add Modules" list
-            // Fetch data from local Storage 
-            const taughtModuleList = StorageCtrl.getModulesFromTaughtModules();
-            const moduleList = ItemCtrl.getModules(); 
-            
-            // Populate data    
-            UICtrl.populateModuleList(taughtModuleList, moduleList);
-          
-          // Uncheck checkboxes of "Taught Module" list
-            // Uncheck "checkbox all" in case of it was checked
-            UICtrl.uncheckCheckboxAll_checkbox('taughtModules');
-
-            // Uncheck all checkboxes in case of "checkbox all" was checked
-            UICtrl.uncheckCheckboxes('taughtModules');
-
-          // Close "Add Module" list
-          UICtrl.closeModuleList();
-        }
-      e.preventDefault();
-    };
-
-    const deleteModule = function(e) {
-
-      // Delete module from "Taught Modules" list
-        // Gather "Taught Modules" list checkboxes from UI 
-        let checkboxes = UICtrl.getCheckBoxes('taughtModules');
-        
-        // Convert to Array 
-        checkboxes = Array.from(checkboxes);
-        
-        // Update UI lists 
-        let moduleRemoved = false;
-
-        // Loop through "Taught Modules" list checkboxes. When a checkbox is checked then enable the corresponding "Add Module" list row. 
-        checkboxes.forEach(function(checkbox) {
-          if(checkbox.checked === true) {
-          // Get checked "taught module" id 
-          let checkboxID = checkbox.id;
-          checkboxID = checkboxID.split('-');
-          let id = checkboxID[1];
-          
-          // Id to number 
-          id = parseInt(id);
-          
-          // // Update data structure (update faculty module table) 
-          // ItemCtrl.deleteTaughtModule(id);
-
-          // Delete module from "taughtModule" table in storage
-          StorageCtrl.deleteTaughtModule(id); 
-          
-          // Populate data in UI 
-          const modules = StorageCtrl.getModulesFromTaughtModules();
-          UICtrl.populateTaughtModuleList(modules);
-
-          // Update UI lists flag
-          moduleRemoved = true;
-          }
-        });
-
-        // Uncheck checkboxes of "Add Modules" list 
-          // Uncheck "checkbox all" in case of it was checked
-          UICtrl.uncheckCheckboxAll_checkbox('addModules');
-
-          // Uncheck all checkboxes in case of "checkbox all" was checked
-          UICtrl.uncheckCheckboxes('addModules');
-
-        // Uncheck checkboxes of "Taught Modules" list
-          // Uncheck "checkbox all" in case of it was checked
-          UICtrl.uncheckCheckboxAll_checkbox('taughtModules');          
-            
-        if(moduleRemoved) {
-          // Update "Add Modules" list
-            // Fetch data from local storage 
-            const taughtModuleList = StorageCtrl.getModulesFromTaughtModules();
-            const moduleList = ItemCtrl.getModules(); 
-            
-            // Populate data   
-            UICtrl.populateModuleList(taughtModuleList, moduleList);
-        }
-
-        // Close "Add Module" list
-        UICtrl.closeModuleList();
-
-      e.preventDefault();
-    }
-
-    // Check/uncheck all modules from "Add Modules" list
-    const checkUncheckAllFromAddModules = function(e) {
-
-      // Gather all checkboxes from "Add Modules" list 
-      const checkboxes = UICtrl.getCheckBoxes('addModules');
-
-      if(e.target.checked) {
-        checkboxes.forEach(function(module) {
-          if(module.disabled === false) {
-            module.checked = true;
-          }
-        }); 
-      } else {
-        checkboxes.forEach(function(module) {
-          module.checked = false;
-        }); 
-      }
-    } 
-
-    // Check/uncheck all modules from "Taught Modules" list
-    const checkUncheckAllFromTaughtModules = function(e) {
-
-      // Gather all modules checkboxes from UI 
-      const checkboxes = UICtrl.getCheckBoxes('taughtModules');
-      
-      if(e.target.checked) {
-        checkboxes.forEach(function(module) {
-          if(module.disabled === false) {
-            module.checked = true;
-          }
-        }); 
-      } else {
-        checkboxes.forEach(function(module) {
-          module.checked = false;
-        }); 
-      }
-    } 
-
+    // Modules tabs
     const selectTabCourseworks = function(e) {
       // Close module list
       UICtrl.closeModuleList();
 
       e.preventDefault();
     }
+
+    // Tab Module List  
+      // Add module 
+      const addModule = function(e) {
+
+        // Add checked modules to "Taught Modules" list 
+          // Gather "Add Modules" list checkboxes from UI 
+          let checkboxes = UICtrl.getCheckBoxes('addModules');
+          
+          // Convert to Array 
+          checkboxes = Array.from(checkboxes);
+          
+          // Update UI lists flag
+          let moduleAdded = false;
+
+          // Loop through "Add Modules" list and add checked modules to "Taught Modules" list 
+          checkboxes.forEach(function(checkbox) {
+            if(checkbox.checked === true) {
+            // Get checked module id 
+            let checkboxID = checkbox.id;
+            checkboxID = checkboxID.split('-');
+            const id = parseInt(checkboxID[1]);
+
+            // Get module from data structure (from module table)
+            moduleToAdd = ItemCtrl.getModuleByID(id);
+
+            // Create new module 
+            const newModule = ItemCtrl.createModule(moduleToAdd.id, moduleToAdd.name, moduleToAdd.course, moduleToAdd.level);
+
+            // // Update data structure (hardcoded data: faculty module table) 
+            // ItemCtrl.addModule(newModule);
+
+            // Store module to local storage (in "taughtModules" table) 
+            StorageCtrl.storeTaughtModules(newModule);
+
+            // Update UI "Taught Modules" list 
+            UICtrl.addModule(newModule);
+
+            // Update UI list flag
+            moduleAdded = true;
+            }
+          });
+
+          // Uncheck checkboxes of "Add Module" list 
+            // Uncheck "checkbox all" in case of it was checked
+            UICtrl.uncheckCheckboxAll_checkbox('addModules');
+
+          if(moduleAdded) {
+            // Update "Add Modules" list
+              // Fetch data from local Storage 
+              const taughtModuleList = StorageCtrl.getModulesFromTaughtModules();
+              const moduleList = ItemCtrl.getModules(); 
+              
+              // Populate data    
+              UICtrl.populateModuleList(taughtModuleList, moduleList);
+            
+            // Uncheck checkboxes of "Taught Module" list
+              // Uncheck "checkbox all" in case of it was checked
+              UICtrl.uncheckCheckboxAll_checkbox('taughtModules');
+
+              // Uncheck all checkboxes in case of "checkbox all" was checked
+              UICtrl.uncheckCheckboxes('taughtModules');
+
+            // Populate "Courseworks calendar" list
+            const courseworks = ItemCtrl.getCourseworks(); 
+            UICtrl.populateCourseworks(courseworks);
+
+            // Close "Add Module" list
+            UICtrl.closeModuleList();
+          }
+        e.preventDefault();
+      };
+
+      // Delete module 
+      const deleteModule = function(e) {
+
+        // Delete module from "Taught Modules" list
+          // Gather "Taught Modules" list checkboxes from UI 
+          let checkboxes = UICtrl.getCheckBoxes('taughtModules');
+          
+          // Convert to Array 
+          checkboxes = Array.from(checkboxes);
+          
+          // Update UI list flag
+          let moduleRemoved = false;
+
+          // Loop through "Taught Modules" list and delete all checked modules. 
+          checkboxes.forEach(function(checkbox) {
+            if(checkbox.checked === true) {
+            // Get checked "taught module" id 
+            let checkboxID = checkbox.id;
+            checkboxID = checkboxID.split('-');
+            let id = checkboxID[1];
+            
+            // Id to number 
+            id = parseInt(id);
+            
+            // // Update data structure (update faculty module table) 
+            // ItemCtrl.deleteTaughtModule(id);
+
+            // Delete module from "taughtModule" table in storage
+            StorageCtrl.deleteTaughtModule(id); 
+            
+            // Populate data in UI 
+            const modules = StorageCtrl.getModulesFromTaughtModules();
+            UICtrl.populateTaughtModuleList(modules);
+
+            // Update UI lists flag
+            moduleRemoved = true;
+            }
+          });
+
+          // Uncheck checkboxes of "Add Modules" list 
+            // Uncheck "checkbox all" in case of it was checked
+            UICtrl.uncheckCheckboxAll_checkbox('addModules');
+
+            // Uncheck all checkboxes in case of "checkbox all" was checked
+            UICtrl.uncheckCheckboxes('addModules');
+
+          // Uncheck checkboxes of "Taught Modules" list
+            // Uncheck "checkbox all" in case of it was checked
+            UICtrl.uncheckCheckboxAll_checkbox('taughtModules');          
+              
+          if(moduleRemoved) {
+            // Update "Add Modules" list
+              // Fetch data from local storage 
+              const taughtModuleList = StorageCtrl.getModulesFromTaughtModules();
+              const moduleList = ItemCtrl.getModules(); 
+              
+              // Populate data   
+              UICtrl.populateModuleList(taughtModuleList, moduleList);
+
+              // Populate "Courseworks calendar" list
+              const courseworks = ItemCtrl.getCourseworks(); 
+              UICtrl.populateCourseworks(courseworks);
+          }
+
+          // Close "Add Module" list
+          UICtrl.closeModuleList();
+
+        e.preventDefault();
+      }
+
+      // Check/uncheck all modules from "Add Modules" list
+      const checkUncheckAllFromAddModules = function(e) {
+
+        // Gather all checkboxes from "Add Modules" list 
+        const checkboxes = UICtrl.getCheckBoxes('addModules');
+
+        if(e.target.checked) {
+          checkboxes.forEach(function(checkbox) {
+            if(checkbox.disabled === false) {
+              checkbox.checked = true;
+            }
+          }); 
+        } else {
+          checkboxes.forEach(function(checkbox) {
+            checkbox.checked = false;
+          }); 
+        }
+      } 
+
+      // Check/uncheck all modules from "Taught Modules" list
+      const checkUncheckAllFromTaughtModules = function(e) {
+
+        // Gather all modules checkboxes from UI 
+        const checkboxes = UICtrl.getCheckBoxes('taughtModules');
+        
+        if(e.target.checked) {
+          checkboxes.forEach(function(checkbox) {
+            if(checkbox.disabled === false) {
+              checkbox.checked = true;
+            }
+          }); 
+        } else {
+          checkboxes.forEach(function(checkbox) {
+            checkbox.checked = false;
+          }); 
+        }
+      }
+      
+    // Tab Courseworks calendar 
+      const deleteCoursework = function(e) {
+        // Delete coursework from "Courseworks calendar" list
+          // Gather "Courseworks calendar" list checkboxes from UI 
+          let checkboxes = UICtrl.getCheckBoxes('courseworks');
+
+          // Convert to Array 
+          checkboxes = Array.from(checkboxes);
+
+          // Loop through "Courseworks calendar" list and delete all checked courseworks. 
+          checkboxes.forEach(function(checkbox) {
+            if(checkbox.checked === true) {
+            // Get checked "courseworks" id 
+            let checkboxID = checkbox.id;
+            checkboxID = checkboxID.split('-');
+            let id = checkboxID[1];
+            
+            // Id to number 
+            id = parseInt(id);
+            
+            // Update data structure (update courseworks module table) 
+            ItemCtrl.deleteCoursework(id);
+            
+            // // Delete module from "taughtModule" table in storage
+            // StorageCtrl.deleteTaughtModule(id); 
+            
+            // Populate data in UI 
+            // const modules = StorageCtrl.getModulesFromTaughtModules();
+            const courseworks = ItemCtrl.getCourseworks(); 
+            UICtrl.populateCourseworks(courseworks);
+            }
+
+            // Uncheck checkboxes of "Courseworks calendar" list
+              // Uncheck "checkbox all" in case of it was checked
+              UICtrl.uncheckCheckboxAll_checkbox('courseworks');  
+
+          });
+
+        e.preventDefault();
+      }
+      // Add coursework 
+      // Delete coursework 
+
+
+      // Check/uncheck all modules from "Courseworks" list
+      const checkUncheckAllCourseworks = function(e) {
+
+        // Gather all checkboxes from "Add Modules" list 
+        const checkboxes = UICtrl.getCheckBoxes('courseworks');
+        
+        if(e.target.checked) {
+          checkboxes.forEach(function(checkbox) {
+            if(checkbox.disabled === false) {
+              checkbox.checked = true;
+            }
+          }); 
+        } else {
+          checkboxes.forEach(function(checkbox) {
+            checkbox.checked = false;
+          }); 
+        }
+      } 
+
+
 
   // Public Methods 
   return {
@@ -529,12 +711,20 @@ const App = (function (ItemCtrl, StorageCtrl, UICtrl) {
       // Fetch data from data structure 
       const taughtModules = ItemCtrl.getTaughtModules();      
       const modules = ItemCtrl.getModules();      
+      const courseworks = ItemCtrl.getCourseworks();   
       
       // Populate data in UI 
-      if(taughtModules.length > 0 || modules.length > 0) {
-        UICtrl.populateTaughtModuleList(taughtModules);
-        UICtrl.populateModuleList(taughtModules, modules);
-      }
+        // Modules list 
+        if(taughtModules.length > 0 || modules.length > 0) {
+          UICtrl.populateTaughtModuleList(taughtModules);
+          UICtrl.populateModuleList(taughtModules, modules);
+        }
+        // Courseworks calendar
+        if(courseworks.length > 0) {
+          UICtrl.populateCourseworks(courseworks);
+        }
+        // Exams calendar
+        // Modules grades 
 
       // Uncheck checkboxesAll
       UICtrl.uncheckCheckboxes('all');
