@@ -571,7 +571,7 @@
                       <!-- Courseworks Calendar -->
                       <div class="tab-pane" id="courseworksCalendar" role="tabpanel" aria-labelledby="courseworksCalendar-tab">  
                         <div class="table-responsive">
-                          <table class="table">
+                          <table id="courseworksTbl" class="table">
                             <caption class="h5 py-0">Courseworks</caption>
                             <thead>
                               <tr>
@@ -650,9 +650,72 @@
                           </table>
                         </div>
                         <div class="d-flex justify-content-end mt-3">
+                          <button id="addCourseworksCollapseBtn" type="button" class="btn btn-primary mr-2" data-toggle="collapse" data-target="#addCourseworksCollapse">
+                            Add Coursework
+                          </button>
                           <button id="deleteCourseworks" type="button" class="btn btn-danger">
                             Delete
                           </button>
+                        </div>
+                        <!-- Add Coursework (Collapse) -->
+                        <div class="col-12 mt-3">
+                          <div class="collapse" id="addCourseworksCollapse">
+                            <div class="card card-body">
+                              <div class="table-responsive">
+                                <table id="addCourseworksTbl" class="table">
+                                  <caption class="h5 py-0">Add Courseworks</caption>
+                                  <thead>
+                                    <tr>
+                                      <th scope="col">#</th>
+                                      <th scope="col">Modules</th>
+                                      <th scope="col">Due Date</th>
+                                      <th scope="col">
+                                        <div class="custom-control custom-checkbox checkThemAll">
+                                          <input type="checkbox" class="custom-control-input" id="acwCheckAll">
+                                          <label class="custom-control-label" for="acwCheckAll"></label>
+                                        </div>
+                                      </th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <!-- <tr>
+                                      <th scope="row">1</th>
+                                      <td>Statistics</td>
+                                      <td>
+                                        <label for="courseworksDate" class="sr-only">Coursework Date</label>
+                                        <input type="date" class="form-control" id="courseworksDate">
+                                      </td>
+                                      <td>
+                                        <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="cwStatistics">
+                                          <label class="custom-control-label" for="cwStatistics"></label>
+                                        </div>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">2</th>
+                                      <td>Computation</td>
+                                      <td>
+                                        <label for="courseworksDate" class="sr-only">Coursework Date</label>
+                                        <input type="date" class="form-control" id="courseworksDate">
+                                      </td>
+                                      <td>
+                                        <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="cwComputation">
+                                          <label class="custom-control-label" for="cwComputation"></label>
+                                        </div>
+                                      </td>
+                                    </tr> -->
+                                  </tbody>
+                                </table>
+                              </div>
+                              <div class="d-flex justify-content-end mt-3">
+                                <button id="addCourseworksBtn" type="button" class="btn btn-primary mr-2">
+                                  <i class="fas fa-plus"></i>
+                                </button>
+                              </div>
+                            </div>
+                          </div> 
                         </div>
                       </div> 
                       <!-- Exams Calendar                    -->
@@ -986,7 +1049,7 @@
                   </table>
                 </div>
                 <div class="d-flex justify-content-end mt-3">
-                  <button id="addModules" type="button" class="btn btn-primary mr-2">
+                  <button id="addModulesBtn" type="button" class="btn btn-primary mr-2">
                     <i class="fas fa-plus"></i>
                   </button>
                 </div>

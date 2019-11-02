@@ -82,7 +82,7 @@ const ItemCtrl = (function () {
       ],
       courseworks: [
         {id:0, name: 'Statistics', DueDate: '3/4/2019'},
-        {id:1, name: 'Computation', DueDate: '16/5/2019'}
+        {id:7, name: 'Computation', DueDate: '16/5/2019'}
       ]
     }
 
@@ -150,30 +150,38 @@ const UICtrl = (function () {
   // Private var & methods 
   const UISelectors = {
     // All Page 
-    pageCheckCheckboxAll: '.checkThemAll .custom-control-input',
+      pageCheckCheckboxAll: '.checkThemAll .custom-control-input',
     // All Modules Tabs 
-    modulesTabs: '#modulesTabs',
+      modulesTabs: '#modulesTabs',
     // Tab Modules List 
-    tabModulesAddModuleBtn: 'addModuleCollapseBtn',
-    tabModulesDeleteBtn: '#deleteModules',
-    tabModulesTaughtModules: '#taughtModules tbody',
-    tabModulesTaughtModulesCheckboxes: '#taughtModules tbody .custom-control-input',
-    tabModulesTaughtModulesCheckboxAll: '#tmCheckAll',
-    tabModulesAddModulesCollapse: '#addModulesCollapse',
-    tabModulesAddModules: '#addModulesCollapse tbody',
-    tabModulesAddModulesPlusBtn: '#addModules',
-    tabModulesAddModulesCheckboxes: '#addModulesCollapse tbody .custom-control-input',
-    tabModulesAddModulesCheckboxAll: '#amCheckAll', 
+      tabModulesAddModuleBtn: 'addModuleCollapseBtn',
+      tabModulesDeleteBtn: '#deleteModules',
+      taughtModulesTable: '#taughtModules tbody',
+      taughtModulesCheckboxes: '#taughtModules tbody .custom-control-input',
+      taughtModulesCheckboxAll: '#tmCheckAll',
+      addModulesCollapse: '#addModulesCollapse',
+      addModulesTable: '#addModulesCollapse tbody',
+      addModulesCheckboxAll: '#amCheckAll', 
+      addModulesCheckboxes: '#addModulesCollapse tbody .custom-control-input',
+      addModulesPlusBtn: '#addModulesBtn',
     // Tab Courseworks calendar
-    tabCourseworks: '#courseworksCalendar tbody',
-    tabCourseworksDeleteBtn: '#deleteCourseworks',
-    tabCourseworksCheckboxes: '#courseworksCalendar tbody .custom-control-input', 
-    tabCourseworksCheckboxAll: '#cwCheckAll'
+      tabCourseworksAddCourseworkBtn: 'addCourseworksCollapseBtn',
+      tabCourseworksDeleteBtn: '#deleteCourseworks',
+      courseworksTable: '#courseworksTbl tbody',
+      courseworksCheckboxAll: '#cwCheckAll',
+      courseworksCheckboxes: '#courseworksTbl tbody .custom-control-input', 
+      addCourseworksCollapse: '#addCourseworksCollapse',
+      addCourseworksTable: '#addCourseworksTbl tbody',
+      addCourseworksCheckboxAll: '#acwCheckAll',
+      addCourseworksCheckboxes: '#addCourseworksTbl tbody .custom-control-input',
+      addCourseworksPlusBtn: '#addCourseworksBtn',
+
+      tabCourseworksNameInput: 'cw-name'
   }
 
   // Public Methods 
   return {
-    populateTaughtModuleList: function(modules) {
+    populateTaughtModules: function(modules) {
       // Initialize html var 
       html='';
  
@@ -195,13 +203,13 @@ const UICtrl = (function () {
       }); 
       
       // Insert html code 
-      document.querySelector(UISelectors.tabModulesTaughtModules).innerHTML = html;
+      document.querySelector(UISelectors.taughtModulesTable).innerHTML = html;
     },
-    populateModuleList: function(taughtModules, modules) {
+    populateModules: function(taughtModules, modules) {
       // Initialize html var 
       html='';
  
-      // Built html code for general module list
+      // Built html code for "Add Modules" list
         // Get "Taught Modules" list ids  
         const taughtModulesIDs = taughtModules.map(function(item) {
           return item.id;
@@ -246,7 +254,7 @@ const UICtrl = (function () {
         });
 
       // Insert html code 
-      document.querySelector(UISelectors.tabModulesAddModules).innerHTML = html;
+      document.querySelector(UISelectors.addModulesTable).innerHTML = html;
     },
     populateCourseworks: function(courseworks) {
       // Initialize html var 
@@ -274,47 +282,117 @@ const UICtrl = (function () {
         </tr>`;
       }); 
 
-      // Built html code for HTML "select" element
-        // Get "Taught Module" list to fill in the "select" html element 
-        const taughtModules = StorageCtrl.getModulesFromTaughtModules(); 
-        
-        // Building html code
-        html+= `
-        <tr>
-          <th scope="row">#</th>
-          <td>
-            <select class="custom-select">
-              <option selected>Select Module</option>
-        `
-        taughtModules.forEach(function(module, index) {
-          html+=`
-            <option value="${index+1}">${module.name}</option>
-          `
-        });
-        
-        html+= ` 
-            </select>
-          </td>
-          <td>
-            <label for="courseworksDate" class="sr-only">Coursework Date</label>
-            <input type="date" class="form-control" id="courseworksDate">
-          </td>
-          <td>
-            <button type="button" class="btn btn-sm btn-primary">
-              <i class="fas fa-plus"></i>
-            </button>
-          </td>
-          <td>
-            <div class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input" id="cwNew" disabled>
-              <label class="custom-control-label" for="cwNew"></label>
-            </div>
-          </td>
-        </tr>`;
-        
+      // // Built html code for HTML "select" element
+      // if(courseworks.length  !== taughtModules.length) {
+      //   // Building html code
+      //   html+= `
+      //   <tr>
+      //     <th scope="row">#</th>
+      //     <td>
+      //       <select id="cw-name" class="custom-select">
+      //         <option selected>Select Module</option>
+      //   `
+      //   // Fill in the "select" element with "taught modules" which are not already members of "Courseworks" list
+      //     // Get "Courseworks" list ids  
+      //     const courseworksIDs = courseworks.map(function(item) {
+      //       return item.id;
+      //     });
+
+      //     taughtModules.forEach(function(module, index) {
+      //       // Check if the current "taught module" is a member of "Courseworks" list
+      //       const foundID = courseworksIDs.indexOf(module.id);
+            
+      //       // If it's not a member then add the "taught module" to "select" element list
+      //       if(foundID < 0) {
+      //         html+=`
+      //         <option value="${index+1}">${module.name}</option>
+      //       `
+      //       }
+      //     });
+          
+      //     html+= ` 
+      //         </select>
+      //       </td>
+      //       <td>
+      //         <label for="courseworksDate" class="sr-only">Coursework Date</label>
+      //         <input type="date" class="form-control" id="courseworksDate">
+      //       </td>
+      //       <td>
+      //         <button type="button" class="btn btn-sm btn-primary addCoursework">
+      //           <i class="fas fa-plus"></i>
+      //         </button>
+      //       </td>
+      //       <td>
+      //         <div class="custom-control custom-checkbox">
+      //           <input type="checkbox" class="custom-control-input" id="cwNew" disabled>
+      //           <label class="custom-control-label" for="cwNew"></label>
+      //         </div>
+      //       </td>
+      //     </tr>`;
+      // }
       
       // Insert html code 
-      document.querySelector(UISelectors.tabCourseworks).innerHTML = html;
+      document.querySelector(UISelectors.courseworksTable).innerHTML = html;
+    },
+    populateAddCourseworks: function(courseworks, taughtModules) {
+      // Initialize html var 
+      html='';
+
+      // Built html code for "Add Courseworks" list
+      // Get "Taught Modules" list ids  
+      const courseworksIDs = courseworks.map(function(item) {
+        return item.id;
+      });
+
+      taughtModules.forEach(function(module, index) {
+        // Check if the current coursework is a member of "Taught Modules" list
+        const foundID = courseworksIDs.indexOf(module.id);
+
+        // If it is a member then add html code with class "muted" else add without class
+        if(foundID >= 0) {
+          // Building html code 
+          html+=`
+          <tr class="text-muted">
+            <th scope="row">${index+1}</th>
+            <td>${module.name}</td>
+            <td>
+              <label for="acwDate-${module.id}" class="sr-only">Coursework Date</label>
+              <input type="date" class="form-control" id="acwDate-${module.id}" disabled>
+            </td>
+            <td>
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="acw-${module.id}" disabled>
+                <label class="custom-control-label" for="acw-${module.id}"></label>
+              </div>
+            </td>
+          </tr>`;
+        } else {
+          // Building html code 
+          html+=`
+          <tr>
+            <th scope="row">${index+1}</th>
+            <td>${module.name}</td>
+            <td>
+              <label for="acwDate-${module.id}" class="sr-only">Coursework Date</label>
+              <input type="date" class="form-control" id="acwDate-${module.id}">
+            </td>
+            <td>
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="acw-${module.id}">
+                <label class="custom-control-label" for="acw-${module.id}"></label>
+              </div>
+            </td>
+          </tr>`;
+          }
+      });
+
+      // Insert html code
+      document.querySelector(UISelectors.addCourseworksTable).innerHTML = html;
+    },
+    getCourseworkInput: function() {
+      return {
+        moduleID: document.getElementById(UISelectors.tabCourseworksNameInput).value
+      }
     },
     addModule: function(module) {
       // Get taught module list to use it's length as index in new module
@@ -337,7 +415,7 @@ const UICtrl = (function () {
         </td>`;
 
       // Insert li element to UI 
-        document.querySelector(UISelectors.tabModulesTaughtModules).insertAdjacentElement("beforeend", tr);
+        document.querySelector(UISelectors.taughtModulesTable).insertAdjacentElement("beforeend", tr);
     },
     // deleteTaughtModule: function(id) {
     //   const module = document.querySelector(`#${id}`);
@@ -345,9 +423,10 @@ const UICtrl = (function () {
     // },
     getCheckBoxes: function(flag) {
       // Gather checkboxes
-      const addModulesCheckboxes = document.querySelectorAll(UISelectors.tabModulesAddModulesCheckboxes);
-      const taughtModulesCheckboxes = document.querySelectorAll(UISelectors.tabModulesTaughtModulesCheckboxes);
-      const courseworksCheckboxes = document.querySelectorAll(UISelectors.tabCourseworksCheckboxes);
+      const addModulesCheckboxes = document.querySelectorAll(UISelectors.addModulesCheckboxes);
+      const taughtModulesCheckboxes = document.querySelectorAll(UISelectors.taughtModulesCheckboxes);
+      const courseworksCheckboxes = document.querySelectorAll(UISelectors.courseworksCheckboxes);
+      const AddCourseworksCheckboxes = document.querySelectorAll(UISelectors.addCourseworksCheckboxes);
       
       if (flag === 'addModules') {
         return addModulesCheckboxes;
@@ -355,12 +434,15 @@ const UICtrl = (function () {
         return taughtModulesCheckboxes;
       } else if(flag === 'courseworks') {
         return courseworksCheckboxes;
+      } else if(flag === 'addCourseworks') {
+        return AddCourseworksCheckboxes;
       }
     },
     uncheckCheckboxAll_checkbox: function(flag) {
-      const addModulesCheckboxAll = document.querySelector(UISelectors.tabModulesAddModulesCheckboxAll);
-      const taughtModulesCheckboxAll = document.querySelector(UISelectors.tabModulesTaughtModulesCheckboxAll);
-      const courseworksCheckboxAll = document.querySelector(UISelectors.tabCourseworksCheckboxAll);
+      const addModulesCheckboxAll = document.querySelector(UISelectors.addModulesCheckboxAll);
+      const taughtModulesCheckboxAll = document.querySelector(UISelectors.taughtModulesCheckboxAll);
+      const courseworksCheckboxAll = document.querySelector(UISelectors.courseworksCheckboxAll);
+      const addCourseworksCheckboxAll = document.querySelector(UISelectors.addCourseworksCheckboxAll);
    
       if(flag === 'addModules') {
         addModulesCheckboxAll.checked = false;
@@ -368,15 +450,19 @@ const UICtrl = (function () {
         taughtModulesCheckboxAll.checked = false;
       } else if(flag === 'courseworks') {
         courseworksCheckboxAll.checked = false;
+      } else if(flag === 'addCourseworks') {
+        addCourseworksCheckboxAll.checked = false;
       }
     },
     uncheckCheckboxes: function(flag) {
       // Gather all checkboxes of the page 
       let checkboxAll = document.querySelectorAll(UISelectors.pageCheckCheckboxAll); 
       // Gather all checkboxes of "Taught Modules" list
-      let taughtModulesCheckboxes = document.querySelectorAll(UISelectors.tabModulesTaughtModulesCheckboxes); 
+      let taughtModulesCheckboxes = document.querySelectorAll(UISelectors.taughtModulesCheckboxes); 
       // Gather all checkboxes of "Add Module" list 
-      let addModulesCheckboxes = document.querySelectorAll(UISelectors.tabModulesAddModulesCheckboxes); 
+      let addModulesCheckboxes = document.querySelectorAll(UISelectors.addModulesCheckboxes); 
+      // Gather all checkboxes of "Add Courseworks" list 
+      let addCourseworksCheckboxes = document.querySelectorAll(UISelectors.addCourseworksCheckboxes); 
       
       if(flag === 'all') {
         // Convert to array 
@@ -402,11 +488,23 @@ const UICtrl = (function () {
         addModulesCheckboxes.forEach(function(checkbox) {
           checkbox.checked = false;
         });
+      } else if(flag === 'addCourseworks') {
+        // Convert to array 
+        addCourseworksCheckboxes = Array.from(addCourseworksCheckboxes);
+        
+        // Loop through array to unchek all checkboxes
+        addCourseworksCheckboxes.forEach(function(checkbox) {
+          checkbox.checked = false;
+        });
       }
     },
-    closeModuleList: function() {
-      if(document.querySelector(UISelectors.tabModulesAddModulesCollapse).classList.contains('show')) {
+    closeCollapseCard: function() {
+      if(document.querySelector(UISelectors.addModulesCollapse).classList.contains('show')) {
         document.getElementById(UISelectors.tabModulesAddModuleBtn).click(function() {
+          $('.collapse').collapse('hide');
+        });
+      } else if(document.querySelector(UISelectors.addCourseworksCollapse).classList.contains('show')) {
+        document.getElementById(UISelectors.tabCourseworksAddCourseworkBtn).click(function() {
           $('.collapse').collapse('hide');
         });
       }
@@ -431,29 +529,35 @@ const App = (function (ItemCtrl, StorageCtrl, UICtrl) {
 
       // Tab Module List  
         // Add module event
-        document.querySelector(UISelectors.tabModulesAddModulesPlusBtn).addEventListener('click', addModule);
+        document.querySelector(UISelectors.addModulesPlusBtn).addEventListener('click', addModule);
 
         // Delete module event
         document.querySelector(UISelectors.tabModulesDeleteBtn).addEventListener('click', deleteModule);
 
         // Check/uncheck all from "Add Modules" list event
-        document.querySelector(UISelectors.tabModulesAddModulesCheckboxAll).addEventListener('click', checkUncheckAllFromAddModules);
+        document.querySelector(UISelectors.addModulesCheckboxAll).addEventListener('click', checkUncheckAllFromAddModules);
 
         // Check/uncheck all from "Taught Modules" list event
-        document.querySelector(UISelectors.tabModulesTaughtModulesCheckboxAll).addEventListener('click', checkUncheckAllFromTaughtModules); 
+        document.querySelector(UISelectors.taughtModulesCheckboxAll).addEventListener('click', checkUncheckAllFromTaughtModules); 
 
       // Tab Courseworks calendar
+        // Add coursework event 
+        document.querySelector(UISelectors.addCourseworksPlusBtn).addEventListener('click', addCoursework);
+
         // Delete coursework event
         document.querySelector(UISelectors.tabCourseworksDeleteBtn).addEventListener('click', deleteCoursework);
 
-         // Check/uncheck all from "Courseworks Calendar" list event
-         document.querySelector(UISelectors.tabCourseworksCheckboxAll).addEventListener('click', checkUncheckAllCourseworks);
+        // Check/uncheck all from "Courseworks" list event
+        document.querySelector(UISelectors.courseworksCheckboxAll).addEventListener('click', checkUncheckAllCourseworks);
+
+        // Check/uncheck all from "Add Courseworks" list event
+        document.querySelector(UISelectors.addCourseworksCheckboxAll).addEventListener('click', checkUncheckAllFromAddCourseworks);
     }
     
     // Modules tabs
     const selectTabCourseworks = function(e) {
       // Close module list
-      UICtrl.closeModuleList();
+      UICtrl.closeCollapseCard();
 
       e.preventDefault();
     }
@@ -507,11 +611,11 @@ const App = (function (ItemCtrl, StorageCtrl, UICtrl) {
           if(moduleAdded) {
             // Update "Add Modules" list
               // Fetch data from local Storage 
-              const taughtModuleList = StorageCtrl.getModulesFromTaughtModules();
+              const taughtModules = StorageCtrl.getModulesFromTaughtModules();
               const moduleList = ItemCtrl.getModules(); 
               
               // Populate data    
-              UICtrl.populateModuleList(taughtModuleList, moduleList);
+              UICtrl.populateModules(taughtModules, moduleList);
             
             // Uncheck checkboxes of "Taught Module" list
               // Uncheck "checkbox all" in case of it was checked
@@ -520,12 +624,13 @@ const App = (function (ItemCtrl, StorageCtrl, UICtrl) {
               // Uncheck all checkboxes in case of "checkbox all" was checked
               UICtrl.uncheckCheckboxes('taughtModules');
 
-            // Populate "Courseworks calendar" list
-            const courseworks = ItemCtrl.getCourseworks(); 
-            UICtrl.populateCourseworks(courseworks);
+            // Update "Add Courseworks" list 
+              // Populate data
+              const courseworks = ItemCtrl.getCourseworks(); 
+              UICtrl.populateAddCourseworks(courseworks, taughtModules);
 
             // Close "Add Module" list
-            UICtrl.closeModuleList();
+            UICtrl.closeCollapseCard();
           }
         e.preventDefault();
       };
@@ -562,7 +667,7 @@ const App = (function (ItemCtrl, StorageCtrl, UICtrl) {
             
             // Populate data in UI 
             const modules = StorageCtrl.getModulesFromTaughtModules();
-            UICtrl.populateTaughtModuleList(modules);
+            UICtrl.populateTaughtModules(modules);
 
             // Update UI lists flag
             moduleRemoved = true;
@@ -583,19 +688,20 @@ const App = (function (ItemCtrl, StorageCtrl, UICtrl) {
           if(moduleRemoved) {
             // Update "Add Modules" list
               // Fetch data from local storage 
-              const taughtModuleList = StorageCtrl.getModulesFromTaughtModules();
+              const taughtModules = StorageCtrl.getModulesFromTaughtModules();
               const moduleList = ItemCtrl.getModules(); 
               
               // Populate data   
-              UICtrl.populateModuleList(taughtModuleList, moduleList);
+              UICtrl.populateModules(taughtModules, moduleList);
 
-              // Populate "Courseworks calendar" list
+            // Update "Add Courseworks" list 
+              // Populate data
               const courseworks = ItemCtrl.getCourseworks(); 
-              UICtrl.populateCourseworks(courseworks);
+              UICtrl.populateAddCourseworks(courseworks, taughtModules);
           }
 
-          // Close "Add Module" list
-          UICtrl.closeModuleList();
+        // Close "Add Modules" list
+        UICtrl.closeCollapseCard();
 
         e.preventDefault();
       }
@@ -639,13 +745,24 @@ const App = (function (ItemCtrl, StorageCtrl, UICtrl) {
       }
       
     // Tab Courseworks calendar 
+      // Add coursework 
+      const addCoursework = function(e) {
+        console.log('adding');
+        
+        e.preventDefault();
+      }
+
+      // Delete coursework 
       const deleteCoursework = function(e) {
         // Delete coursework from "Courseworks calendar" list
           // Gather "Courseworks calendar" list checkboxes from UI 
           let checkboxes = UICtrl.getCheckBoxes('courseworks');
-
+          
           // Convert to Array 
           checkboxes = Array.from(checkboxes);
+
+          // Update UI list flag
+          let courseworkRemoved = false;
 
           // Loop through "Courseworks calendar" list and delete all checked courseworks. 
           checkboxes.forEach(function(checkbox) {
@@ -658,29 +775,50 @@ const App = (function (ItemCtrl, StorageCtrl, UICtrl) {
             // Id to number 
             id = parseInt(id);
             
-            // Update data structure (update courseworks module table) 
+            // Delete coursework from data structure (courseworks table) 
             ItemCtrl.deleteCoursework(id);
-            
-            // // Delete module from "taughtModule" table in storage
+
+            // // Delete coursework from "coursework" table in storage
             // StorageCtrl.deleteTaughtModule(id); 
-            
+
             // Populate data in UI 
-            // const modules = StorageCtrl.getModulesFromTaughtModules();
-            const courseworks = ItemCtrl.getCourseworks(); 
+            // const courseworks = StorageCtrl.getModulesFromTaughtModules();
+            const courseworks = ItemCtrl.getCourseworks();
             UICtrl.populateCourseworks(courseworks);
+
+            // Update UI lists flag
+            courseworkRemoved = true;
             }
-
-            // Uncheck checkboxes of "Courseworks calendar" list
-              // Uncheck "checkbox all" in case of it was checked
-              UICtrl.uncheckCheckboxAll_checkbox('courseworks');  
-
           });
+        
+        // Uncheck checkboxes of "Add Courseworks" list 
+          // Uncheck "checkbox all" in case of it was checked
+          UICtrl.uncheckCheckboxAll_checkbox('addCourseworks');
+
+          // Uncheck all checkboxes in case of "checkbox all" was checked
+          UICtrl.uncheckCheckboxes('addCourseworks');
+
+        // Uncheck checkboxes of "Courseworks calendar" list
+          // Uncheck "checkbox all" in case of it was checked
+          UICtrl.uncheckCheckboxAll_checkbox('courseworks');  
+
+        if(courseworkRemoved) {
+          // Update "Add Courseworks" list
+            // Fetch data from data structure 
+            const courseworks = ItemCtrl.getCourseworks();  
+
+            // Fetch data from local storage 
+            const taughtModules = StorageCtrl.getModulesFromTaughtModules();
+            
+            // Populate data
+            UICtrl.populateAddCourseworks(courseworks, taughtModules);
+        }
+    
+        // Close "Add Courseworks" list
+        UICtrl.closeCollapseCard();
 
         e.preventDefault();
       }
-      // Add coursework 
-      // Delete coursework 
-
 
       // Check/uncheck all modules from "Courseworks" list
       const checkUncheckAllCourseworks = function(e) {
@@ -701,7 +839,24 @@ const App = (function (ItemCtrl, StorageCtrl, UICtrl) {
         }
       } 
 
+      // Check/uncheck all modules from "Courseworks" list
+      const checkUncheckAllFromAddCourseworks = function(e) {
 
+        // Gather all checkboxes from "Add Courseworks" list 
+        const checkboxes = UICtrl.getCheckBoxes('addCourseworks');
+        
+        if(e.target.checked) {
+          checkboxes.forEach(function(checkbox) {
+            if(checkbox.disabled === false) {
+              checkbox.checked = true;
+            }
+          }); 
+        } else {
+          checkboxes.forEach(function(checkbox) {
+            checkbox.checked = false;
+          }); 
+        }
+      } 
 
   // Public Methods 
   return {
@@ -716,12 +871,13 @@ const App = (function (ItemCtrl, StorageCtrl, UICtrl) {
       // Populate data in UI 
         // Modules list 
         if(taughtModules.length > 0 || modules.length > 0) {
-          UICtrl.populateTaughtModuleList(taughtModules);
-          UICtrl.populateModuleList(taughtModules, modules);
+          UICtrl.populateTaughtModules(taughtModules);
+          UICtrl.populateModules(taughtModules, modules);
         }
         // Courseworks calendar
         if(courseworks.length > 0) {
           UICtrl.populateCourseworks(courseworks);
+          UICtrl.populateAddCourseworks(courseworks, taughtModules);
         }
         // Exams calendar
         // Modules grades 
