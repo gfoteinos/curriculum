@@ -2,6 +2,7 @@
 * What is left to do 
 * ---------------------
 *  
+* On line 1030 continue to save the "Due Date" element to "Courseworks list"
 */
 
 // Controllers
@@ -57,6 +58,13 @@ const ItemCtrl = (function () {
       this.level = level;
     } 
 
+    // Coursework Constructor
+    const Coursework = function(id, name, dueDate) {
+      this.id = id;
+      this.name = name;
+      this.dueDate = dueDate;
+    } 
+
     // Data Structure
     const data = {
       // // Hardcoded data 
@@ -81,8 +89,8 @@ const ItemCtrl = (function () {
           {id:9, name: 'Databases and the Web', course: 'Computing', level: 'Master'}
       ],
       courseworks: [
-        {id:0, name: 'Statistics', DueDate: '3/4/2019'},
-        {id:7, name: 'Computation', DueDate: '16/5/2019'}
+        {id:0, name: 'Statistics', dueDate: '3/4/2019'},
+        {id:7, name: 'Computation', dueDate: '16/5/2019'}
       ]
     }
 
@@ -93,6 +101,17 @@ const ItemCtrl = (function () {
     },
     getModules: function() {
       return data.modules;
+    },
+    getTaughtModuleByID: function(id) {
+      let found = null;
+
+      data.taughtModules.forEach(function(module) {
+        if(module.id === id) {
+          found = module;
+        } 
+      });
+
+      return found;
     },
     getModuleByID: function(id) {
       let found = null;
@@ -127,6 +146,16 @@ const ItemCtrl = (function () {
     // // Remove the item from data using the index above
     //   data.facultyModules.splice(index, 1);
     // }
+    createCoursework: function(id, name, dueDate) {
+      // Create new Coursework 
+      newCoursework = new Coursework(id, name, dueDate);
+
+      return newCoursework;
+    },
+    addCoursework: function(coursework) {
+      // Add coursework to "courseworks" table 
+      data.courseworks.push(coursework);
+    },
     deleteCoursework: function(id) {
       // Get the courseworks ids from data
       let ids = data.courseworks.map(function(coursework) {
@@ -168,6 +197,7 @@ const UICtrl = (function () {
       tabCourseworksAddCourseworkBtn: 'addCourseworksCollapseBtn',
       tabCourseworksDeleteBtn: '#deleteCourseworks',
       courseworksTable: '#courseworksTbl tbody',
+      courseworksEdit: '.cwEdit',
       courseworksCheckboxAll: '#cwCheckAll',
       courseworksCheckboxes: '#courseworksTbl tbody .custom-control-input', 
       addCourseworksCollapse: '#addCourseworksCollapse',
@@ -267,10 +297,16 @@ const UICtrl = (function () {
         <tr>
           <th scope="row">${index+1}</th>
           <td>${coursework.name}</td>
-          <td>${coursework.DueDate}</td>
           <td>
-            <button type="button" class="btn btn-sm btn-primary ">
-              <i class="fas fa-pencil-alt"></i>
+            <label for="cwDate-${coursework.id}" class="sr-only">Coursework Date</label>
+            <input style="display: none" type="date" class="form-control" id="cwDate-${coursework.id}">
+            ${coursework.dueDate}</td>
+          <td>
+            <button id="cwEdit-${coursework.id}" type="button" class="btn btn-sm btn-primary">
+              <i class="fas fa-pencil-alt cwEdit"></i>
+            </button>
+            <button style="display: none" type="button" class="btn btn-sm btn-success">
+              <i class="fas fa-save cwSave"></i>
             </button>
           </td>
           <td>
@@ -395,7 +431,7 @@ const UICtrl = (function () {
       }
     },
     addModule: function(module) {
-      // Get taught module list to use it's length as index in new module
+      // Get "Taught modules" list to use it's length as index in new module
       const rowNumber = StorageCtrl.getModulesFromTaughtModules().length;
 
       // Build tr element
@@ -421,6 +457,33 @@ const UICtrl = (function () {
     //   const module = document.querySelector(`#${id}`);
     //   module.parentNode.parentNode.parentNode.remove();
     // },
+    addCoursework: function(coursework) {
+      // Get "Courseworks" list to use it's length as index in new module
+      const rowNumber = ItemCtrl.getCourseworks().length;
+      
+      // Build tr element
+        // Create tr 
+        const tr = document.createElement('tr');
+        // Add HTML 
+        tr.innerHTML = `
+        <th scope="row">${rowNumber}</th>
+          <td>${coursework.name}</td>
+          <td>${coursework.dueDate}</td>
+          <td>
+            <button type="button" class="btn btn-sm btn-primary ">
+              <i class="fas fa-pencil-alt"></i>
+            </button>
+          </td>
+          <td>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="cw-${coursework.id}">
+              <label class="custom-control-label" for="cw-${coursework.id}"></label>
+            </div>
+          </td>`;
+
+      // Insert li element to UI 
+        document.querySelector(UISelectors.courseworksTable).insertAdjacentElement("beforeend", tr);
+    },
     getCheckBoxes: function(flag) {
       // Gather checkboxes
       const addModulesCheckboxes = document.querySelectorAll(UISelectors.addModulesCheckboxes);
@@ -461,6 +524,8 @@ const UICtrl = (function () {
       let taughtModulesCheckboxes = document.querySelectorAll(UISelectors.taughtModulesCheckboxes); 
       // Gather all checkboxes of "Add Module" list 
       let addModulesCheckboxes = document.querySelectorAll(UISelectors.addModulesCheckboxes); 
+      // Gather all checkboxes of "Courseworks" list 
+      let courseworksCheckboxes = document.querySelectorAll(UISelectors.courseworksCheckboxes); 
       // Gather all checkboxes of "Add Courseworks" list 
       let addCourseworksCheckboxes = document.querySelectorAll(UISelectors.addCourseworksCheckboxes); 
       
@@ -486,6 +551,14 @@ const UICtrl = (function () {
         
         // Loop through array to unchek all checkboxes
         addModulesCheckboxes.forEach(function(checkbox) {
+          checkbox.checked = false;
+        });
+      } else if(flag === 'courseworks') {
+        // Convert to array 
+        courseworksCheckboxes = Array.from(courseworksCheckboxes);
+        
+        // Loop through array to unchek all checkboxes
+        courseworksCheckboxes.forEach(function(checkbox) {
           checkbox.checked = false;
         });
       } else if(flag === 'addCourseworks') {
@@ -546,6 +619,12 @@ const App = (function (ItemCtrl, StorageCtrl, UICtrl) {
 
         // Delete coursework event
         document.querySelector(UISelectors.tabCourseworksDeleteBtn).addEventListener('click', deleteCoursework);
+        
+        // Edit coursework event
+        document.querySelector(UISelectors.courseworksTable).addEventListener('click', editCoursework);
+
+        // Save coursework event 
+        document.querySelector(UISelectors.courseworksTable).addEventListener('click', saveCoursework); 
 
         // Check/uncheck all from "Courseworks" list event
         document.querySelector(UISelectors.courseworksCheckboxAll).addEventListener('click', checkUncheckAllCourseworks);
@@ -604,7 +683,7 @@ const App = (function (ItemCtrl, StorageCtrl, UICtrl) {
             }
           });
 
-          // Uncheck checkboxes of "Add Module" list 
+          // Uncheck checkboxes of "Add Modules" list 
             // Uncheck "checkbox all" in case of it was checked
             UICtrl.uncheckCheckboxAll_checkbox('addModules');
 
@@ -747,8 +826,97 @@ const App = (function (ItemCtrl, StorageCtrl, UICtrl) {
     // Tab Courseworks calendar 
       // Add coursework 
       const addCoursework = function(e) {
-        console.log('adding');
-        
+        // Add checked "taught modules" to "courseworks" list
+          // Gather "Add Courseworks" list checkboxes from UI 
+          let checkboxes = UICtrl.getCheckBoxes('addCourseworks');
+
+          // Convert to Array 
+          checkboxes = Array.from(checkboxes);
+          
+          // Update UI lists flag
+          let addCourseworks;
+
+          // Check if one or more checked rows of "Add Courseworks" list has no "Due Date"  
+          for(let i=0; i<checkboxes.length; i++) {
+            // Get checked module id 
+            let checkboxID = checkboxes[i].id;
+            checkboxID = checkboxID.split('-');
+            const id = parseInt(checkboxID[1]);
+
+            // Get "Due Date" from "Add Courseworks" list 
+            const courseworkDueDate = document.querySelector(`#acwDate-${id}`).value;
+
+            if(checkboxes[i].checked === true && courseworkDueDate === '') {
+              addCourseworks = false;
+              break;
+            }
+          }
+          
+          // If it has no "Due Date" stop adding and inform user else add coursework 
+          if(addCourseworks === false) {
+            console.log('It is trying to added one or more courseworks without "Due Date". Please fill in the "Due Dates" that are missing.');
+          } else {
+            // Loop through "Add Courseworks" list and add checked modules to "Courseworks" list 
+            checkboxes.forEach(function(checkbox) {
+              if(checkbox.checked === true) {
+              // Get checked module id 
+              let checkboxID = checkbox.id;
+              checkboxID = checkboxID.split('-');
+              const id = parseInt(checkboxID[1]);
+                
+              // Get "taught module" id & name from data structure (from "taughtModules" table)
+              courseworkID = ItemCtrl.getModuleByID(id).id;
+              courseworkName = ItemCtrl.getModuleByID(id).name;
+              
+              // Get "Due Date" from "Add Courseworks" list 
+              let courseworkDueDate = document.querySelector(`#acwDate-${id}`).value;
+              
+              // Convert date value to English UK short format 
+              const options = { day: 'numeric',  month: 'numeric', year: 'numeric'  };
+              courseworkDueDate = new Date(courseworkDueDate).toLocaleString('en-GB', options);
+             
+              // Create new coursework 
+              const newCoursework = ItemCtrl.createCoursework(courseworkID, courseworkName, courseworkDueDate);
+
+              // Add "coursework" to  data structure (hardcoded data: courseworks table) 
+              ItemCtrl.addCoursework(newCoursework);
+
+              // // Store module to local storage (in "taughtModules" table) 
+              // StorageCtrl.storeTaughtModules(newModule);
+
+              // Update UI "Courseworks" list 
+              UICtrl.addCoursework(newCoursework);
+
+              // Update UI lists flag
+              addCourseworks = true;
+              }
+            });
+          }
+          
+          // Uncheck checkboxes of "Add Courseworks" list 
+            // Uncheck "checkbox all" in case of it was checked
+            UICtrl.uncheckCheckboxAll_checkbox('addCourseworks');
+            
+          if(addCourseworks) {
+            // Update "Add Courseworks" list
+              // Fetch data from local Storage 
+              const taughtModules = StorageCtrl.getModulesFromTaughtModules();
+              const courseworks = ItemCtrl.getCourseworks(); 
+            
+              // Populate data    
+              UICtrl.populateAddCourseworks(courseworks, taughtModules);
+            
+            // Uncheck checkboxes of "Courseworks" list
+              // Uncheck "checkbox all" in case of it was checked
+              UICtrl.uncheckCheckboxAll_checkbox('courseworks');
+
+              // Uncheck all checkboxes in case of "checkbox all" was checked
+              UICtrl.uncheckCheckboxes('courseworks');
+            
+            // Close "Add Module" list
+            UICtrl.closeCollapseCard();
+          }
+
         e.preventDefault();
       }
 
@@ -816,6 +984,52 @@ const App = (function (ItemCtrl, StorageCtrl, UICtrl) {
     
         // Close "Add Courseworks" list
         UICtrl.closeCollapseCard();
+
+        e.preventDefault();
+      }
+      
+      // Edit coursework 
+      const editCoursework = function(e) {
+        if(e.target.classList.contains('cwEdit')) {
+          // Make changes in UI at "Courseworks" list 
+            // Gather the UI elements
+            const tableCell = e.target.parentNode.parentNode.previousSibling.previousSibling; 
+            const textDate = e.target.parentNode.parentNode.previousSibling.previousSibling.lastChild;
+            const datePicker = e.target.parentNode.parentNode.previousSibling.previousSibling.lastElementChild;
+            const saveBtn = e.target.parentNode.parentNode.previousSibling.previousSibling.nextElementSibling.lastElementChild;
+          
+          // Remove text Date 
+          tableCell.removeChild(textDate);
+
+          // Remove edit button 
+          e.target.parentNode.setAttribute('style', 'display: none');
+          
+          // Display date picker 
+          datePicker.setAttribute('style', 'display: block');
+
+          // Display save button 
+          saveBtn.setAttribute('style', 'display: block');
+        }
+        
+        e.preventDefault();
+      }
+
+      // Save coursework 
+      const saveCoursework = function(e) {
+        if(e.target.classList.contains('cwSave')) {
+          const element = e.target.parentNode.parentNode.previousSibling.previousSibling
+          
+          // Get "Due Date" from "Add Courseworks" list 
+          const cwID = e.target.parentNode.parentNode.previousSibling.previousSibling.lastElementChild.id;
+          let courseworkDueDate = document.querySelector(`#${cwID}`).value;
+
+          // Convert date value to English UK short format 
+          const options = { day: 'numeric',  month: 'numeric', year: 'numeric'  };
+          courseworkDueDate = new Date(courseworkDueDate).toLocaleString('en-GB', options);
+
+          console.log(courseworkDueDate);
+         
+        }
 
         e.preventDefault();
       }
