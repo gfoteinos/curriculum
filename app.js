@@ -1,6 +1,7 @@
 /*
 * What is left to do 
 * ---------------------
+* It has to be added message for update coursework
 */
 
 // Controllers
@@ -313,8 +314,10 @@ const UICtrl = (function () {
     // All Modules Tabs 
       modulesTabs: '#modulesTabs',
     // Tab Modules List 
+      tabTaughtModules: '#taughtModules',
       tabModulesAddModuleBtn: 'addModuleCollapseBtn',
       tabModulesDeleteBtn: '#deleteModules',
+      tabTaughtModulesResponsiveTable: '#taughtModules > .table-responsive',
       taughtModulesTable: '#taughtModules tbody',
       taughtModulesCheckboxes: '#taughtModules tbody .custom-control-input',
       taughtModulesCheckboxAll: '#tmCheckAll',
@@ -326,10 +329,13 @@ const UICtrl = (function () {
     // Tab Courseworks calendar
       tabCourseworksAddCourseworkBtn: 'addCourseworksCollapseBtn',
       tabCourseworksDeleteBtn: '#deleteCourseworks',
+      tabCourseworks: '#courseworksCalendar',
+      tabCourseworksResponsiveTable: '#courseworksCalendar > .table-responsive',
       courseworksTable: '#courseworksTbl tbody',
       courseworksCheckboxAll: '#cwCheckAll',
       courseworksCheckboxes: '#courseworksTbl tbody .custom-control-input', 
       addCourseworksCollapse: '#addCourseworksCollapse',
+      addCourseworksCollapseCard: '#addCourseworksCollapse > .card',
       addCourseworksTable: '#addCourseworksTbl tbody',
       addCourseworksCheckboxAll: '#acwCheckAll',
       addCourseworksCheckboxes: '#addCourseworksTbl tbody .custom-control-input',
@@ -337,7 +343,9 @@ const UICtrl = (function () {
 
       tabCourseworksNameInput: 'cw-name',
     // Tab Exams calendar 
-      examsTable: '#examsTbl tbody',  
+      examsCalendar: '#examsCalendar',
+      examsCalendarTable: '#examsCalendar > .table-responsive',
+      examsTable: '#examsTbl tbody'
 
   }
 
@@ -774,6 +782,51 @@ const UICtrl = (function () {
     },
     getUISelectors: function() {
       return UISelectors;
+    },
+    showAlert: function(message, className, position) {
+      // Add in UI
+        // Create alert
+          // Create <div> element
+          const div = document.createElement('div');
+          // Add classes to <div>
+          div.className = `alert alert-${className}`;
+          // Add text to <div>
+          // div.appendChild(document.createTextNode(message));
+          div.innerHTML = message;
+
+        // Initialize position vars  
+        let parent = '';
+        let sibling = '';
+        // Put the "alert" in spesific position
+        if(position === 'exams calendar') {
+          // Get the parent element <div>
+          parent = document.querySelector(UISelectors.examsCalendar);
+          // Get the sibling element <form>
+          sibling = document.querySelector(UISelectors.examsCalendarTable);
+        } else if(position === 'courseworks calendar' && message === "It is trying to added one or more courseworks without <b>Due Date</b>. Please fill in the <b>Due Dates</b> that are missing.") {
+          // Get the parent element <div>
+          parent = document.querySelector(UISelectors.addCourseworksCollapse);
+          // Get the sibling element <form>
+          sibling = document.querySelector(UISelectors.addCourseworksCollapseCard);
+        } else if(position === 'courseworks calendar') {
+          // Get the parent element <div>
+          parent = document.querySelector(UISelectors.tabCourseworks);
+          // Get the sibling element <form>
+          sibling = document.querySelector(UISelectors.tabCourseworksResponsiveTable);
+        } else if(position === 'modules list') {
+          // Get the parent element <div>
+          parent = document.querySelector(UISelectors.tabTaughtModules);
+          // Get the sibling element <form>
+          sibling = document.querySelector(UISelectors.tabTaughtModulesResponsiveTable);
+        } 
+
+        //Put the alert above <sibling> inside of parent
+        parent.insertBefore(div, sibling);
+  
+      // Alert timeout
+      setTimeout(function () {
+        document.querySelector('.alert').remove();
+      }, 5000);
     }
   }
 })();
@@ -794,8 +847,14 @@ const App = (function (ItemCtrl, StorageCtrl, UICtrl) {
         // Add module event
         document.querySelector(UISelectors.addModulesPlusBtn).addEventListener('click', addModule);
 
-        // Delete module event
-        document.querySelector(UISelectors.tabModulesDeleteBtn).addEventListener('click', deleteModule);
+        // Delete module trigger modal event
+        document.querySelector(UISelectors.tabModulesDeleteBtn).addEventListener('click', deleteModuleTriggerModal);
+        
+        // Cancel delete module trigger modal event
+        document.querySelector('#cancelDeleteModulesModalBtn').addEventListener('click', cancelDeleteModuleTriggerModal);
+
+        // Delete modules event
+        document.querySelector('#deleteModulesModalBtn').addEventListener('click', deleteModules);
 
         // Check/uncheck all from "All Modules" list event
         document.querySelector(UISelectors.allModulesCheckboxAll).addEventListener('click', checkUncheckAllFromAllModules);
@@ -835,26 +894,26 @@ const App = (function (ItemCtrl, StorageCtrl, UICtrl) {
     }
     
     // Modules tabs
-    const selectTabCourseworks = function(e) {
+      const selectTabCourseworks = function(e) {
 
-      // Update "Courseworks" list in UI 
-        // Get data from local storage 
-        const courseworks = StorageCtrl.getCourseworks();
-        // Populate data 
-        UICtrl.populateCourseworks(courseworks);
+        // Update "Courseworks" list in UI 
+          // Get data from local storage 
+          const courseworks = StorageCtrl.getCourseworks();
+          // Populate data 
+          UICtrl.populateCourseworks(courseworks);
 
-      // Update "Exams" list in UI
-        // Get data from local storage 
-        const taughtModules = StorageCtrl.getTaughtModules();
-        const exams = StorageCtrl.getExams();
-        // Populate data
-        UICtrl.populateExams(exams, taughtModules);
+        // Update "Exams" list in UI
+          // Get data from local storage 
+          const taughtModules = StorageCtrl.getTaughtModules();
+          const exams = StorageCtrl.getExams();
+          // Populate data
+          UICtrl.populateExams(exams, taughtModules);
 
-      // Close module list
-      UICtrl.closeCollapseCard();
+        // Close module list
+        UICtrl.closeCollapseCard();
 
-      e.preventDefault();
-    }
+        e.preventDefault();
+      }
 
     // Tab Module List  
       // Add module 
@@ -928,12 +987,59 @@ const App = (function (ItemCtrl, StorageCtrl, UICtrl) {
 
             // Close "Add Module" list
             UICtrl.closeCollapseCard();
+
+            // Show 'success' alert 
+              const message = "One or more modules <b>added</b> successfully"
+              const className = 'success'
+              const position = 'modules list'
+              UICtrl.showAlert(message, className, position);
           }
         e.preventDefault();
       };
 
-      // Delete module 
-      const deleteModule = function(e) {
+      // Delete module Trigger Modal
+      const deleteModuleTriggerModal = function(e) {
+
+        // Check if a module is checked for deletion & trigger modal respectively
+          // Gather "Taught Modules" list checkboxes from UI 
+          let checkboxes = UICtrl.getCheckBoxes('taughtModules');
+          
+          // Convert to Array 
+          checkboxes = Array.from(checkboxes);
+          
+          // Initialize remove flag 
+          let removeModule = false;
+          for(let i=0; i<checkboxes.length; i++) {
+            if(checkboxes[i].checked === true) {
+              // Fire remove flag 
+              removeModule = true;
+            }
+          }
+          
+        if(removeModule) {
+          $('#deleteModulesModal').modal('show');
+        } else {
+          // Close "All Modules" list
+          UICtrl.closeCollapseCard();
+        }
+
+        e.preventDefault();
+      }
+
+      // Cancel delete module Trigger Modal
+      const cancelDeleteModuleTriggerModal = function(e) {
+        
+        // Uncheck all modules 
+        checkUncheckAllTaughtModules(e);
+
+        // Close "All Modules" list
+        UICtrl.closeCollapseCard();
+
+        e.preventDefault();
+      }
+
+      // Delete modules 
+      const deleteModules = function(e) {
 
         // Delete module from "Taught Modules" list
           // Gather "Taught Modules" list checkboxes from UI 
@@ -945,7 +1051,6 @@ const App = (function (ItemCtrl, StorageCtrl, UICtrl) {
           // Update UI list flag
           let moduleRemoved = false;
 
-          // Loop through "Taught Modules" list and delete all checked modules. 
           checkboxes.forEach(function(checkbox) {
             if(checkbox.checked === true) {
             // Get checked "taught module" id 
@@ -975,7 +1080,7 @@ const App = (function (ItemCtrl, StorageCtrl, UICtrl) {
               if(exams.length > 0) {
                 StorageCtrl.deleteExam(id); 
               }
-
+            
             // Update UI lists flag
             moduleRemoved = true;
             }
@@ -1010,10 +1115,19 @@ const App = (function (ItemCtrl, StorageCtrl, UICtrl) {
               UICtrl.populateAllModules(taughtModules, allModules);
               UICtrl.populateAddCourseworks(courseworks, taughtModules);
               UICtrl.populateExams(exams, taughtModules);
+            
+            // Show 'success' alert 
+              const message = "One or more modules <b>deleted</b> successfully"
+              const className = 'success'
+              const position = 'modules list'
+              UICtrl.showAlert(message, className, position);
           }
 
         // Close "All Modules" list
         UICtrl.closeCollapseCard();
+        
+        // Hide modal 
+        $('#deleteModulesModal').modal('toggle');
 
         e.preventDefault();
       }
@@ -1087,8 +1201,13 @@ const App = (function (ItemCtrl, StorageCtrl, UICtrl) {
           
           // If it has no "Due Date" stop adding and inform user else add coursework 
           if(addCourseworks === false) {
-            console.log('It is trying to added one or more courseworks without "Due Date". Please fill in the "Due Dates" that are missing.');
+            // Show 'warning' alert 
+              const message = "It is trying to added one or more courseworks without <b>Due Date</b>. Please fill in the <b>Due Dates</b> that are missing."
+              const className = 'warning'
+              const position = 'courseworks calendar'
+              UICtrl.showAlert(message, className, position);
           } else {
+          // Add coursework 
             // Loop through "Taught Modules" list and add checked modules to "Courseworks" list 
             checkboxes.forEach(function(checkbox) {
               if(checkbox.checked === true) {
@@ -1149,6 +1268,12 @@ const App = (function (ItemCtrl, StorageCtrl, UICtrl) {
             
             // Close "Add Module" list
             UICtrl.closeCollapseCard();
+
+            // Show 'success' alert 
+              const message = "One or more courseworks <b>added</b> successfully"
+              const className = 'success'
+              const position = 'courseworks calendar'
+              UICtrl.showAlert(message, className, position);
           }
 
         e.preventDefault();
@@ -1213,6 +1338,12 @@ const App = (function (ItemCtrl, StorageCtrl, UICtrl) {
 
             // Populate data
             UICtrl.populateAddCourseworks(courseworks, taughtModules);
+
+          // Show 'success' alert 
+            const message = "One or more courseworks <b>deleted</b> successfully"
+            const className = 'success'
+            const position = 'courseworks calendar'
+            UICtrl.showAlert(message, className, position);
         }
     
         // Close "Add Courseworks" list
@@ -1264,15 +1395,26 @@ const App = (function (ItemCtrl, StorageCtrl, UICtrl) {
             dueDate = new Date(courseworkDueDate).toLocaleString('en-GB', options);
           
           if(dueDate === '' || dueDate ==='Invalid Date') {
-            console.log('It is trying to update coursework without "Due Date". Please fill in the "Due Dates".');
+            // Show 'warning' alert 
+              const message = "It is trying to update coursework without <b>Due Date</b>. Please fill in a <b>Due Date</b>."
+              const className = 'warning'
+              const position = 'courseworks calendar'
+              UICtrl.showAlert(message, className, position);
           } else {
             // Update coursework in local storage 
             StorageCtrl.updateCoursework(dueDate, id);
+
             // Update coursework in UI 
               // Get courseworks from local storage 
               const courseworks = StorageCtrl.getCourseworks();
               // Populate courseworks 
               UICtrl.populateCourseworks(courseworks);
+            
+            // Show 'success' alert 
+              const message = "Coursework <b>updated</b> successfully."
+              const className = 'success'
+              const position = 'courseworks calendar'
+              UICtrl.showAlert(message, className, position);
           }
         }
 
@@ -1345,7 +1487,11 @@ const App = (function (ItemCtrl, StorageCtrl, UICtrl) {
           // Check if one or more inputs are empty. If empty inform the user
           // else add exam 
           if(examDate === '' || examDate === 'Invalid Date' || examTime === '' || examClass === '') {
-            console.log("It's seems one or more inputs are empty. Please fill in all inputs elements. ");
+            // Show 'warning' alert 
+              const message = "It's seems <b>one or more inputs are empty</b>. Please fill in all inputs elements."
+              const className = 'warning'
+              const position = 'exams calendar'
+              UICtrl.showAlert(message, className, position);
           } else {
           // Add exam 
             // Get "exam" id & "exam" name from "taught module" in local storage (Both of them has the same id & name) 
@@ -1364,6 +1510,12 @@ const App = (function (ItemCtrl, StorageCtrl, UICtrl) {
               const taughModules = StorageCtrl.getTaughtModules();
               // Populate data 
               UICtrl.populateExams(exams, taughModules);
+            
+            // Show 'Success' alert 
+              const message = "Exam <b>added</b> successfully"
+              const className = 'success'
+              const position = 'exams calendar'
+              UICtrl.showAlert(message, className, position);
           }
         }
       }
@@ -1418,7 +1570,11 @@ const App = (function (ItemCtrl, StorageCtrl, UICtrl) {
           // Check if one or more inputs are empty. If empty inform the user
           // else update exam 
           if(examDate === '' || examDate === 'Invalid Date' || examTime === '' || examClass === '') {
-            console.log("It's seems one or more inputs are empty. Please fill in all inputs elements. ");
+            // Show 'warning' alert 
+              const message = "It's seems <b>one or more inputs are empty</b>. Please fill in all inputs elements."
+              const className = 'warning'
+              const position = 'exams calendar'
+              UICtrl.showAlert(message, className, position);
           } else {
           // Update exam 
             // Update exam in local storage 
@@ -1429,6 +1585,11 @@ const App = (function (ItemCtrl, StorageCtrl, UICtrl) {
               const taughtModules = StorageCtrl.getTaughtModules();
               // Populate exams 
               UICtrl.populateExams(exams, taughtModules);
+            // Show 'success' alert 
+              const message = "Exam <b>updated</b> successfully"
+              const className = 'success'
+              const position = 'exams calendar'
+              UICtrl.showAlert(message, className, position);
           }
         }
       }
