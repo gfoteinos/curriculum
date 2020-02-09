@@ -111,12 +111,14 @@
         <div class="row">
           <div class="col d-flex align-items-center text-center">
             <div class="container pt-5 ">
-              <h1 class="display-4 mb-3 mb-lg-4">A Curriculum For Everyone</h1>
+              <h1 class="display-4 mb-3 mb-lg-4">Curriculum</h1>
               <p class="lead mb-4 ">Simple And Effective</p>
               <a
                 href="#"
                 class="btn btn-outline-primary btn-lg text-white"
                 role="button"
+                data-toggle="modal"
+                data-target="#infoAppModal"
               >
                 Start
               </a>
@@ -144,10 +146,11 @@
               <div class="card-body">
                 <h3 class="card-title">Courses</h3>
                 <p class="card-text">
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolor
-                  optio reiciendis quia possimus, nostrum quam, quod amet quos
-                  deleniti quo in magnam voluptatum, autem sint!
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                  Dolor optio reiciendis quia possimus, nostrum quam, quod amet
+                  quos deleniti quo in magnam voluptatum, autem sint!
                 </p>
+                <a href="course.html" class="btn btn-primary mt-3">Go to courses</a>
               </div>
             </div>
           </div>
@@ -173,10 +176,11 @@
               <div class="card-body">
                 <h3 class="card-title">Modules</h3>
                 <p class="card-text">
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolor
-                  optio reiciendis quia possimus, nostrum quam, quod amet quos
-                  deleniti quo in magnam voluptatum, autem sint!
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                  Dolor optio reiciendis quia possimus, nostrum quam, quod amet
+                  quos deleniti quo in magnam voluptatum, autem sint!
                 </p>
+                <a href="module.html" class="btn btn-primary mt-3">Go to modules</a>
               </div>
             </div>
           </div>
@@ -202,10 +206,11 @@
               <div class="card-body">
                 <h3 class="card-title">Faculty Members</h3>
                 <p class="card-text">
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolor
-                  optio reiciendis quia possimus, nostrum quam, quod amet quos
-                  deleniti quo in magnam voluptatum, autem sint!
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                  Dolor optio reiciendis quia possimus, nostrum quam, quod amet
+                  quos deleniti quo in magnam voluptatum, autem sint!
                 </p>
+                <a href="faculty-profile.html" class="btn btn-primary mt-3">Go to faculty member</a>
               </div>
             </div>
           </div>
@@ -231,10 +236,11 @@
               <div class="card-body">
                 <h3 class="card-title">Students</h3>
                 <p class="card-text">
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolor
-                  optio reiciendis quia possimus, nostrum quam, quod amet quos
-                  deleniti quo in magnam voluptatum, autem sint!
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                  Dolor optio reiciendis quia possimus, nostrum quam, quod amet
+                  quos deleniti quo in magnam voluptatum, autem sint!
                 </p>
+                <a href="student-profile.html" class="btn btn-primary mt-3">Go to students</a>
               </div>
             </div>
           </div>
@@ -247,9 +253,15 @@
       <div class="container py-5 text-center">
         <div class="row pb-4">
           <div class="col">
-            <h2>A Curriculum for Everyone.</h2>
+            <h2>Curriculum</h2>
             <p class="lead">Simple And Effective</p>
-            <a href="#" class="btn btn-outline-primary btn-lg" role="button">
+            <a
+              href="#"
+              class="btn btn-outline-primary btn-lg"
+              role="button"
+              data-toggle="modal"
+              data-target="#infoAppModal"
+            >
               Start
             </a>
           </div>
@@ -337,6 +349,82 @@
 
     <!-- MODALS -->
 
+    <!-- INFO APP MODAL -->
+    <div id="infoAppModal" class="modal fade modal--default" role="dialog">
+      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header border-bottom-0 d-flex align-items-center pb-0">
+            <!-- <h5 class="modal-title">Log In to Your Carricilum Account!</h5> -->
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-bodypt-0">
+            <div class="row row-divided">
+              <div class="col">
+                <div class="card border-0">
+                  <div class="card-body">
+                    <h5>A few words about the app</h5>
+                    <p>
+                      University curriculum is a simple curriculum management software. It allow you to create accounts for faculty members and students.
+                    </p>
+                    <p>A faculty member can create courses and modules connected with courses asign courseworks and exams for a module and monitor students progress. </p>
+                    <p>A student can monitor his progress and can have access to different informations like deadlines for courseworks and exams module marks e.t.c.</p>
+                    <p>This project created with vanilla JavaScript & Bootstrap.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="vertical-divider"></div>
+              <div class="col d-flex align-items-center">
+                <div class="card border-0">
+                  <div class="card-body">
+                    <div class="form-group mb-5">
+                      <div class="d-flex flex-row">
+                        <div>
+                          <a href="faculty-profile.html" class="img--button">
+                            <img
+                            src="/img/Tutors/m-2.jpg"
+                            class="img-fluid avatar--small avatar--rounded avatar--border-blue-thin shadow mr-3"
+                            alt="Faculty member photo"
+                            />
+                            </div>
+                          </a>
+                          <div class="align-self-center">
+                            <p class="mb-0">Login as Faculty Member</p>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="d-flex flex-row">
+                        <div>
+                          <a href="student-profile.html">
+                            <img
+                            src="/img/Students/m-2.jpg"
+                            class="img-fluid avatar--small avatar--rounded avatar--border-blue-thin shadow mr-3"
+                            alt="Faculty member photo"
+                          />
+                          </a>
+                        </div>
+                        <div class="align-self-center">
+                          <p class="mb-0">Login as Student</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+         
+        </div>
+      </div>
+    </div>
+
     <!-- LOGIN MODAL -->
     <div id="loginModal" class="modal fade modal--default" role="dialog">
       <div class="modal-dialog" role="document">
@@ -366,7 +454,8 @@
                   id="email"
                   class="form-control form-control-lg"
                   placeholder="Email"
-                  maxlength="64" minlength="7"
+                  maxlength="64"
+                  minlength="7"
                   required=""
                   aria-label="Email"
                   aria-describedby="addonEmail"
@@ -384,31 +473,46 @@
                   id="password"
                   class="form-control form-control-lg"
                   placeholder="Password"
-                  maxlength="64" minlength="6"
+                  maxlength="64"
+                  minlength="6"
                   required=""
                   aria-label="Password"
                   aria-describedby="addonPassword"
                 />
               </div>
-              <button
+              <a
+                href="faculty-profile.html"
+                class="form-control btn btn-block btn-lg btn-primary mb-3"
+                >Log in </a
+              >
+              <!-- <button
                 type="submit"
                 class="form-control btn btn-block btn-lg btn-primary mb-3"
               >
                 Log In
-              </button>
-              <p class="text-center">or <a href="#" data-toggle="modal" data-target="#forgotPassword" data-dismiss="modal">forgot password</a></p>
+              </button> -->
+              <p class="text-center">
+                or
+                <a
+                  href="#"
+                  data-toggle="modal"
+                  data-target="#forgotPassword"
+                  data-dismiss="modal"
+                  >forgot password</a
+                >
+              </p>
             </form>
           </div>
           <div class="modal-footer justify-content-center">
-            Don't have an account? 
+            Don't have an account?
             <!-- A Trigger "Sign Up" Modal -->
             <a
-            href="#"
-            data-toggle="modal"
-            data-target="#signUpModal"
-            data-dismiss="modal"
-            >Sign Up</a
-          >
+              href="#"
+              data-toggle="modal"
+              data-target="#signUpModal"
+              data-dismiss="modal"
+              >Sign Up</a
+            >
           </div>
         </div>
       </div>
@@ -461,7 +565,8 @@
                   id="email"
                   class="form-control form-control-lg"
                   placeholder="Email"
-                  maxlength="64" minlength="7"
+                  maxlength="64"
+                  minlength="7"
                   required=""
                   aria-label="Email"
                   aria-describedby="addonEmail"
@@ -479,27 +584,44 @@
                   id="password"
                   class="form-control form-control-lg"
                   placeholder="Password"
-                  maxlength="64" minlength="6"
+                  maxlength="64"
+                  minlength="6"
                   required=""
                   aria-label="Password"
                   aria-describedby="addonPassword"
                 />
               </div>
-              <div class="form-group d-flex justify-content-between col-10 mx-auto py-2">
+              <div
+                class="form-group d-flex justify-content-between col-10 mx-auto py-2"
+              >
                 <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" name="radioOption" id="facultyMember" class="custom-control-input">
-                  <label for="facultyMember" class="custom-control-label">As Faculty Member</label>
+                  <input
+                    type="radio"
+                    name="radioOption"
+                    id="facultyMember"
+                    class="custom-control-input"
+                  />
+                  <label for="facultyMember" class="custom-control-label"
+                    >As Faculty Member</label
+                  >
                 </div>
                 <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" name="radioOption" id="student" class="custom-control-input">
-                  <label for="student" class="custom-control-label">As Student</label>
+                  <input
+                    type="radio"
+                    name="radioOption"
+                    id="student"
+                    class="custom-control-input"
+                  />
+                  <label for="student" class="custom-control-label"
+                    >As Student</label
+                  >
                 </div>
               </div>
               <a
-              href="faculty-profile.html"
-              class="form-control btn btn-block btn-lg btn-primary mb-3"
-              >Sign Up</a
-            >
+                href="faculty-profile.html"
+                class="form-control btn btn-block btn-lg btn-primary mb-3"
+                >Sign Up</a
+              >
               <!-- <button
                 type="submit"
                 class="form-control btn btn-block btn-lg btn-primary mb-3"
@@ -509,7 +631,7 @@
             </form>
           </div>
           <div class="modal-footer justify-content-center">
-            Already have an account? 
+            Already have an account?
             <!-- A Trigger "Login" Modal -->
             <a
               href="#"
@@ -523,39 +645,63 @@
       </div>
     </div>
 
-      <!-- FORGOT PASSWORD -->
-      <div id="forgotPassword" class="modal fade modal--default" role="dialog">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header d-flex align-items-center">
-              <h5 class="modal-title">Forgot Password</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <form class="py-2">
-                <div class="input-group mb-3 input-group--white">
-                  <div class="input-group-prepend">
-                    <span id="addonEmail" class="input-group-text">
-                      <i class="fas fa-envelope"></i>
-                    </span>
-                  </div>
-                  <input type="email" name="" id="email" class="form-control form-control-lg" placeholder="Email" maxlenght="64" minlenght="7" required="" aria-label="Email"
-                  aria-describedby="addonEmail"/>
+    <!-- FORGOT PASSWORD -->
+    <div id="forgotPassword" class="modal fade modal--default" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header d-flex align-items-center">
+            <h5 class="modal-title">Forgot Password</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form class="py-2">
+              <div class="input-group mb-3 input-group--white">
+                <div class="input-group-prepend">
+                  <span id="addonEmail" class="input-group-text">
+                    <i class="fas fa-envelope"></i>
+                  </span>
                 </div>
-                <button
+                <input
+                  type="email"
+                  name=""
+                  id="email"
+                  class="form-control form-control-lg"
+                  placeholder="Email"
+                  maxlenght="64"
+                  minlenght="7"
+                  required=""
+                  aria-label="Email"
+                  aria-describedby="addonEmail"
+                />
+              </div>
+              <button
                 type="submit"
                 class="btn btn-block btn-lg btn-primary mb-3"
               >
                 Reset Password
               </button>
-              <p class="text-center">or <a href="#" data-toggle="modal" data-target="#loginModal" data-dismiss="modal">Log In</a></p>
-              </form>
-            </div>
+              <p class="text-center">
+                or
+                <a
+                  href="#"
+                  data-toggle="modal"
+                  data-target="#loginModal"
+                  data-dismiss="modal"
+                  >Log In</a
+                >
+              </p>
+            </form>
           </div>
         </div>
       </div>
+    </div>
 
     <!-- jQuery -->
     <script
@@ -606,6 +752,10 @@
           );
         }
       });
+
+      $(window).on('load',function(){
+        $('#infoAppModal').modal('show');
+    });
     </script>
   </body>
 </html>

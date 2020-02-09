@@ -14,6 +14,47 @@ body {
 
 /* TEMPS */
 
+/* LINES */
+.vertical-divider {
+  position: absolute;
+  z-index: 10;
+  top: 10%;
+  left: 50%;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  height: 50%;
+  line-height: 0;
+  text-align:center;
+  text-transform: uppercase;
+  transform: translateX(-50%);
+}
+
+.vertical-divider:before, 
+.vertical-divider:after {
+  position: absolute;
+  left: 50%;
+  content: '';
+  z-index: 9;
+  border-left: 1px solid rgba(34,36,38,.15);
+  border-right: 1px solid rgba(255,255,255,.1);
+  width: 0;
+  height: calc(100% - 1rem);
+}
+
+.row-divided > .vertical-divider {
+  height: calc(90% - 1rem);    
+}
+
+/* .vertical-divider:before {
+  top: -100%;
+}
+
+.vertical-divider:after {
+  top: auto;
+  bottom: 0;
+} */
+
 /* FORMS */
   form label {
     margin-bottom: .25rem;
@@ -53,10 +94,19 @@ body {
 
 /* MODULES */
   /* Avatar */
-  .avatar-small {
+  .avatar--pico {
+    width: 50px;
+    height: 50px;
+  }
+  .avatar--small {
     width:100px;
     height: 100px;
   }
+  .avatar--small:hover {
+    border: 0.3rem solid rgba(0, 123, 255, 0.6);
+    
+  }
+  
   .avatar-medium {
     width: 250px;
     height: 250px; 
@@ -64,6 +114,9 @@ body {
   .avatar--rounded {
     border-radius: 50%;
     object-fit: cover;
+  }
+  .avatar--border-blue-thin {
+    border: 0.18rem solid rgba(0, 123, 255, 0.6);
   }
   .avatar--border-blue {
     border: 0.3rem solid rgba(0, 123, 255, .6);
